@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-image: url('image2.png');
+            background-size: cover;
+            background-position: center 70%;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.2), rgba(255, 105, 180, 0.3));
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin-left: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .carousel-container {
+            width: 50%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin-left: 50px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 450px;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .day-title {
+            font-size: 36px;
+            color: #FF1493;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .day-date {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .day-image {
+            width: 250px;
+            height: 250px;
+            margin-bottom: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            background: linear-gradient(135deg, #FFE4E1, #FFF0F5);
+            border: 5px solid #FF69B4;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            overflow: hidden;
+        }
+
+        .day-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .day-message {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.6);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #FFB6C1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #FF1493;
+            transform: scale(1.3);
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.6;
+            animation: float-heart 8s infinite;
+        }
+
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: white;
+            color: #FF1493;
+            border: 2px solid #FF1493;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #FF1493;
+            color: white;
+        }
+
+        .valentine-question {
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .love-symbol {
+            position: absolute;
+            font-size: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .button-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+        }
+
+        .buttons-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .valentine-btn {
+            padding: 18px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Comic Sans MS', cursive;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.3);
+            min-width: 140px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            color: white;
+            position: absolute;
+        }
+
+        .valentine-btn:hover {
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.5);
+        }
+
+        .yes-btn {
+            left: 50%;
+            top: 50%;
+            transform: translate(calc(-100% - 15px), -50%);
+        }
+
+        .no-btn {
+            left: 50%;
+            top: 50%;
+            transform: translate(15px, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .success-message {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .sad-message {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+            color: #FF1493;
+            padding: 15px 25px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+            border: 2px solid #FF69B4;
+        }
+
+        .sad-message.show {
+            opacity: 1;
+            animation: shakeSad 0.5s ease;
+        }
+
+        @keyframes shakeSad {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-5deg); }
+            75% { transform: translateX(-50%) rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='cute-girl-game.html'">← Back</button>
+
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- February 7 - Rose Day -->
+                <div class="carousel-slide active" data-day="0">
+                    <div class="day-title">🌹 Rose Day 🌹</div>
+                    <div class="day-date">February 7, 2026</div>
+                    <div class="day-image" >
+                        <img src="image3.png" alt="Rose Day">
+                    </div>
+                    <div class="day-message">
+                        Like roses that bloom with beauty, my love for you grows more vibrant each day. You're my red rose, my symbol of eternal love!
+                    </div>
+                </div>
+
+                <!-- February 8 - Propose Day -->
+                <div class="carousel-slide" data-day="1">
+                    <div class="day-title">💍 Propose Day 💍</div>
+                    <div class="day-date">February 8, 2026</div>
+                    <div class="day-image">
+                        <img src="image5.png" alt="Propose Day">
+                    </div>
+                    <div class="day-message">
+                        Every day I choose you! Will you be mine forever? You make every moment magical, and I promise to love you endlessly!
+                    </div>
+                </div>
+
+                <!-- February 9 - Chocolate Day -->
+                <div class="carousel-slide" data-day="2">
+                    <div class="day-title">🍫 Chocolate Day</div>
+                    <div class="day-date">February 9, 2026</div>
+                    <div class="day-image" style="margin-top:-15px;">
+                        <img src="image10.png" alt="Chocolate Day" >
+                    </div>
+                    <div class="day-message">
+                        You're sweeter than the sweetest chocolate! Life with you is a delicious adventure, filled with sweet moments I'll cherish forever!
+                    </div>
+                </div>
+
+                <!-- February 10 - Teddy Day -->
+                <div class="carousel-slide" data-day="3">
+                    <div class="day-title">🧸 Teddy Day 🧸</div>
+                    <div class="day-date">February 10, 2026</div>
+                    <div class="day-image">
+                        <img src="image4.png" alt="Teddy Day">
+                    </div>
+                    <div class="day-message">
+                        Just like a teddy bear brings comfort, you're my warmth, my safety, and my home. Hugging you is my favorite place to be!
+                    </div>
+                </div>
+
+                <!-- February 11 - Promise Day -->
+                <div class="carousel-slide" data-day="4">
+                    <div class="day-title">🤝 Promise Day 🤝</div>
+                    <div class="day-date">February 11, 2026</div>
+                    <div class="day-image">
+                        <img src="promise.jpeg" alt="Promise Day">
+                    </div>
+                    <div class="day-message">
+                        I promise to stand by you through every storm, celebrate every joy, and love you unconditionally for all our tomorrows!
+                    </div>
+                </div>
+
+                <!-- February 12 - Hug Day -->
+                <div class="carousel-slide" data-day="5">
+                    <div class="day-title">🤗 Hug Day 🤗</div>
+                    <div class="day-date">February 12, 2026</div>
+                    <div class="day-image">
+                        <img src="image9.png" alt="Hug Day">
+                    </div>
+                    <div class="day-message">
+                        In your arms is where I belong. Your hugs heal my soul, calm my mind, and remind me that everything will be alright!
+                    </div>
+                </div>
+
+                <!-- February 13 - Kiss Day -->
+                <div class="carousel-slide" data-day="6">
+                    <div class="day-title">💋 Kiss Day 💋</div>
+                    <div class="day-date">February 13, 2026</div>
+                    <div class="day-image">
+                        <img src="image8.png" alt="Kiss Day">
+                    </div>
+                    <div class="day-message">
+                        Every kiss with you feels like the first time - magical, electric, and filled with endless love. You're my forever kiss!
+                    </div>
+                </div>
+
+                <!-- February 14 - Valentine's Day -->
+                <div class="carousel-slide" data-day="7">
+                    <!-- Will you be my Valentine section -->
+                    <div class="valentine-question" id="valentineQuestion">
+                        <h2 style="color: #FF1493; margin-bottom: 40px; font-size: 36px; font-weight: bold;">Will you be my Valentine? 💕</h2>
+                        <div class="button-container">
+                            <div class="buttons-wrapper">
+                                <button class="valentine-btn yes-btn" id="yesBtn">Yes! 💗</button>
+                                <button class="valentine-btn no-btn" id="noBtn">
+                                    No
+                                    <div class="sad-message" id="sadMessage">Babe you want to click no? 😭</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Success message after clicking Yes -->
+                    <div class="success-message" id="successMessage" style="display: none;">
+                        <div class="circle-image" style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 20px auto 20px; border: 5px solid #FF1493; box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);">
+                            <img src="photo2.jpeg" alt="Love" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <h3 style="color: #FF1493; margin-bottom: 15px; font-size: 32px;">Yay! 🎉💕</h3>
+                        <p style="color: #333; font-size: 18px; line-height: 1.6; max-width: 400px; margin: 0 auto;">
+                            I knew you'd say yes Nanna! your the most special person in my life.
+                            and nanna neku telsa you treat me like a princess ela antey she should not face any situation without me anatu chestav.Babe you know what without you i will not imagine my life and i will not be able to do anything in this world. I will always be there for you in every situation and i will always love you more than anything in this world.
+                            You are my forever Valentine! Love you nanna❤️✨
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn">❮ Previous</button>
+                <button class="nav-btn" id="nextBtn">Next ❯</button>
+            </div>
+
+            <div class="dots" id="dots"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dots');
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                dots[index].classList.remove('active');
+            });
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+            
+            // Hide navigation buttons on last slide
+            if (currentSlide === slides.length - 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            } else if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        });
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('hearts').appendChild(heart);
+
+            setTimeout(() => heart.remove(), 13000);
+        }
+
+        // Generate hearts continuously
+        setInterval(createHeart, 500);
+
+        // Initial hearts
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createHeart, i * 300);
+        }
+
+        // Valentine's Day interactive buttons
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const valentineQuestion = document.getElementById('valentineQuestion');
+        const successMessage = document.getElementById('successMessage');
+        const sadMessage = document.getElementById('sadMessage');
+
+        // Array of sad messages
+        const sadMessages = [
+            "Babe you want to click no? 😭",
+            "babeee natakalu! 😢💔",
+            "oye mata vinava enti???? 😭💔",
+            "babe neney ga ne love yes click cheyy 🥺😢",
+            "musukuni yes click cheyy😭💔"
+        ];
+        let currentMessageIndex = 0;
+        let isButtonMoved = false;
+        let lastDistance = 200; // Track previous distance to detect approach
+
+        // Make the No button run away from cursor and show sad messages sequentially
+        document.addEventListener('mousemove', (e) => {
+            if (noBtn && valentineQuestion.style.display !== 'none') {
+                const noBtnRect = noBtn.getBoundingClientRect();
+                const containerRect = document.querySelector('.carousel-container').getBoundingClientRect();
+                const noBtnCenterX = noBtnRect.left + noBtnRect.width / 2;
+                const noBtnCenterY = noBtnRect.top + noBtnRect.height / 2;
+                
+                const distance = Math.sqrt(
+                    Math.pow(e.clientX - noBtnCenterX, 2) + 
+                    Math.pow(e.clientY - noBtnCenterY, 2)
+                );
+
+                // If cursor is within 100px of the No button, show message and move it
+                if (distance < 100) {
+                    // Only change message when first approaching (not already moved)
+                    if (!isButtonMoved) {
+                        isButtonMoved = true;
+                        
+                        // Show sad message with sequential message from array
+                        if (sadMessage) {
+                            sadMessage.classList.add('show');
+                            sadMessage.textContent = sadMessages[currentMessageIndex];
+                            
+                            // Move to next message for next time
+                            currentMessageIndex = (currentMessageIndex + 1) % sadMessages.length;
+                        }
+                    }
+                    
+                    const angle = Math.atan2(noBtnCenterY - e.clientY, noBtnCenterX - e.clientX);
+                    const moveDistance = 150;
+                    
+                    // Calculate new position
+                    let newX = noBtnCenterX + Math.cos(angle) * moveDistance;
+                    let newY = noBtnCenterY + Math.sin(angle) * moveDistance;
+                    
+                    // Get button container bounds
+                    const btnContainerRect = document.querySelector('.button-container').getBoundingClientRect();
+                    const padding = 20;
+                    const minX = btnContainerRect.left + padding;
+                    const maxX = btnContainerRect.right - noBtnRect.width - padding;
+                    const minY = btnContainerRect.top + padding;
+                    const maxY = btnContainerRect.bottom - noBtnRect.height - padding;
+                    
+                    newX = Math.max(minX, Math.min(maxX, newX - noBtnRect.width / 2));
+                    newY = Math.max(minY, Math.min(maxY, newY - noBtnRect.height / 2));
+                    
+                    // Set absolute position relative to button container
+                    noBtn.style.left = (newX - btnContainerRect.left) + 'px';
+                    noBtn.style.top = (newY - btnContainerRect.top) + 'px';
+                    noBtn.style.transform = 'none';
+                } else {
+                    // Reset when cursor is far away
+                    if (distance > 150) {
+                        isButtonMoved = false;
+                    }
+                    
+                    // Hide message when cursor is far away
+                    if (sadMessage) {
+                        sadMessage.classList.remove('show');
+                    }
+                }
+                
+                lastDistance = distance;
+            }
+        });
+
+        // Handle Yes button click
+        if (yesBtn) {
+            yesBtn.addEventListener('click', () => {
+                valentineQuestion.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Create celebration hearts
+                for (let i = 0; i < 30; i++) {
+                    setTimeout(createHeart, i * 100);
+                }
+            });
+        }
+
+        // Handle No button click (just in case they manage to click it)
+        if (noBtn) {
+            noBtn.addEventListener('click', () => {
+                const btnContainerRect = document.querySelector('.button-container').getBoundingClientRect();
+                const noBtnRect = noBtn.getBoundingClientRect();
+                
+                // Move it away to a random position within button container
+                const padding = 20;
+                const minX = padding;
+                const maxX = btnContainerRect.width - noBtnRect.width - padding;
+                const minY = padding;
+                const maxY = btnContainerRect.height - noBtnRect.height - padding;
+                
+                const randomX = Math.random() * (maxX - minX) + minX;
+                const randomY = Math.random() * (maxY - minY) + minY;
+                
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                noBtn.style.transform = 'none';
+                
+                // Show a random sad message
+                if (sadMessage) {
+                    sadMessage.classList.add('show');
+                    const ~ = Math.floor(Math.random() * sadMessages.length);
+                    sadMessage.textContent = sadMessages[randomIndex];
+                    setTimeout(() => sadMessage.classList.remove('show'), 2000);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
