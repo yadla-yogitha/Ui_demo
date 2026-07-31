@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Admin Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-strip">
+        <div class="brand">AVIVA</div>
+        <button class="text-button">Logout</button>
+      </header>
+
+      <main class="workspace" id="prototypeApp">
+        <section class="screen events-screen" data-screen="events" aria-label="Events list screen">
+          <div class="toolbar">
+            <input type="search" placeholder="Search events..." class="search-input" />
+            <button class="solid-button">Search</button>
+            <select class="sort-select" aria-label="Sort events">
+              <option>Newest First</option>
+              <option>Oldest First</option>
+            </select>
+            <button class="solid-button new-event">New Event</button>
+          </div>
+
+          <div class="events-list">
+            <article class="event-card" data-open-event>
+              <div class="event-logo">AVIVA</div>
+              <div class="event-meta">
+                <h2>test99 <span class="chip">132TTE</span></h2>
+                <p>London</p>
+                <p><strong>Start:</strong> 31st July 2026 | 06:30 PM</p>
+                <p><strong>End:</strong> 31st July 2026 | 11:30 PM</p>
+              </div>
+              <div class="event-code">QRCode</div>
+              <div class="event-date">
+                <span class="day">31</span>
+                <span class="month">Jul</span>
+              </div>
+            </article>
+
+            <article class="event-card" data-open-event>
+              <div class="event-logo">AVIVA</div>
+              <div class="event-meta">
+                <h2>test event 1 <span class="chip">131TET</span></h2>
+                <p>London</p>
+                <p><strong>Start:</strong> 30th July 2026 | 05:30 AM</p>
+                <p><strong>End:</strong> 30th July 2026 | 12:30 PM</p>
+              </div>
+              <div class="event-code">QRCode</div>
+              <div class="event-date">
+                <span class="day">30</span>
+                <span class="month">Jul</span>
+              </div>
+            </article>
+
+            <article class="event-card">
+              <div class="event-logo">AVIVA</div>
+              <div class="event-meta">
+                <h2>blendology <span class="chip">130BBL</span></h2>
+                <p>London</p>
+                <p><strong>Start:</strong> 28th July 2026 | 08:00 AM</p>
+                <p><strong>End:</strong> 28th July 2026 | 04:00 PM</p>
+              </div>
+              <div class="event-code">QRCode</div>
+              <div class="event-date">
+                <span class="day">28</span>
+                <span class="month">Jul</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen detail-screen is-hidden" data-screen="detail" aria-label="Event detail screen">
+          <aside class="left-panel">
+            <div class="logo-card">AVIVA</div>
+            <div class="event-time-grid">
+              <div>
+                <p class="dim">Starts at</p>
+                <p>31 Jul 2026<br />06:30 PM</p>
+              </div>
+              <div>
+                <p class="dim">Ends at</p>
+                <p>31 Jul 2026<br />11:30 PM</p>
+              </div>
+            </div>
+
+            <p class="status-line">Event Started! <span class="dot" aria-hidden="true"></span></p>
+
+            <nav class="menu" aria-label="Event menu">
+              <button class="menu-item" data-tab="timeline">Timeline</button>
+              <button class="menu-item is-active" data-tab="guests">Import Guests</button>
+              <button class="menu-item" data-tab="badges">Badge Templates</button>
+              <button class="menu-item" data-tab="report">Report</button>
+              <button class="menu-item" data-tab="edit">Edit Event</button>
+            </nav>
+
+            <div class="stats">
+              <h3>Registration Statistics</h3>
+              <p><strong>Total Registered</strong> <span>0</span></p>
+            </div>
+          </aside>
+
+          <section class="detail-main">
+            <header class="detail-header">
+              <h1>test99</h1>
+              <div class="view-switch" role="tablist" aria-label="Event content states">
+                <button class="ghost-button is-active" data-view="empty">No Guests</button>
+                <button class="ghost-button" data-view="list">Guest List</button>
+                <button class="ghost-button" data-view="badge">Badge Template</button>
+              </div>
+            </header>
+
+            <section class="content-view" data-view-panel="empty">
+              <p class="empty-copy">No guests found. Upload Guests List <a href="#">Here!</a></p>
+            </section>
+
+            <section class="content-view is-hidden" data-view-panel="list">
+              <div class="panel-head">
+                <h2>Guest List</h2>
+                <button class="solid-button secondary">Download Excel</button>
+              </div>
+              <div class="table-wrap" role="region" aria-label="Guest list table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Reference</th>
+                      <th>Company</th>
+                      <th>Job Title</th>
+                      <th>Comment</th>
+                      <th>User Tag</th>
+                      <th>Group Tag</th>
+                      <th>Tag Colour</th>
+                      <th>Lanyard Colour</th>
+                      <th>Pronoun</th>
+                      <th>Type Data</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="13" class="empty-row">No guests found. Upload an Excel file to add guests.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="content-view is-hidden" data-view-panel="badge">
+              <div class="badge-grid">
+                <article class="card">
+                  <h2>Badge Template</h2>
+                  <div class="preview-placeholder">
+                    <p>Preview not available</p>
+                    <small>No badge template uploaded for this event yet.</small>
+                  </div>
+                </article>
+
+                <article class="card">
+                  <h2>Upload Badge Template</h2>
+                  <label class="upload-zone" for="badge-upload">
+                    <input id="badge-upload" type="file" hidden />
+                    <p>Click to select file or drag and drop it here</p>
+                    <small>Supported format: folder</small>
+                  </label>
+                  <p class="help-copy">Use your own folder or download our badge template.</p>
+                </article>
+              </div>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

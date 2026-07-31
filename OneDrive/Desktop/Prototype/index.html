@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Setup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-strip setup-top-strip">
+        <div class="brand">AVIVA</div>
+      </header>
+
+      <main class="workspace setup-main">
+        <section class="screen setup-wrap card" aria-label="Theme setup">
+          <div class="panel-head">
+            <h1>Select Your Color Theme</h1>
+          </div>
+          <p class="setup-copy">Choose Primary, Secondary, Tertiary, and Text colors. These will be applied to all next screens.</p>
+          <form id="color-config-form" class="palette-form">
+            <label class="color-input-group">
+              <span>Primary</span>
+              <input type="color" name="primary" value="#2922ea" />
+            </label>
+            <label class="color-input-group">
+              <span>Secondary</span>
+              <input type="color" name="secondary" value="#ce4d4b" />
+            </label>
+            <label class="color-input-group">
+              <span>Tertiary</span>
+              <input type="color" name="tertiary" value="#107474" />
+            </label>
+            <label class="color-input-group">
+              <span>Text Heading</span>
+              <input type="color" name="text" value="#c6e14d" />
+            </label>
+            <div class="palette-actions">
+              <button type="submit" class="solid-button setup-cta">Save and Continue</button>
+              <button type="button" id="reset-theme" class="ghost-button setup-reset">Reset</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="setup.js"></script>
+  </body>
+</html>
