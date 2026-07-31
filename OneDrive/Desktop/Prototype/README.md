@@ -57,10 +57,11 @@ This is a static web app (HTML/CSS/JS), so you can deploy it directly without a 
 2. In Vercel, click **Add New...** -> **Project**.
 3. Import your repository.
 4. Framework preset: **Other**.
-5. Build and output settings:
+5. Set **Root Directory** to `OneDrive/Desktop/Prototype` (important when this app is inside a larger repo).
+6. Build and output settings:
 	- Build command: *(leave empty)*
 	- Output directory: *(leave empty)*
-6. Click **Deploy**.
+7. Click **Deploy**.
 
 `vercel.json` is already added for static hosting defaults.
 
