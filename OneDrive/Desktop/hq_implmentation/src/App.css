@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+
+:root {
+  --color-primary: #2378c8;
+  --color-secondary: #f8c31a;
+  --color-tertiary: #209550;
+  --color-text: #1c2b3d;
+
+  --bg-base: #f4f7fb;
+  --bg-soft: #eef4fb;
+  --border-standard: #d8e2ee;
+  --focus-ring: rgba(35, 120, 200, 0.25);
+  --color-on-dark: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Manrope, 'Segoe UI', sans-serif;
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at 2% 2%, rgba(35, 120, 200, 0.08), transparent 30%),
+    radial-gradient(circle at 98% 98%, rgba(248, 195, 26, 0.08), transparent 33%),
+    var(--bg-base);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.tag-badge {
+  background: color-mix(in srgb, var(--color-primary) 15%, white);
+  color: var(--color-primary);
+}
