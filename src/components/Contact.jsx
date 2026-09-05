@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Sparkles, Mail, Phone, MapPin, Send, CheckCircle2, Shield } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -64,7 +64,7 @@ export default function Contact({ defaultService = '' }) {
                 Inquiry Dispatched!
               </h3>
               <p className="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
-                Thank you, <span className="text-amber-300 font-semibold">{formData.name}</span>. An assigned VFX Producer from our <span className="text-amber-300 font-medium">Los Angeles / London Hub</span> will evaluate your requirements and contact you at <span className="text-amber-300 font-mono">{formData.email}</span> within 2 hours.
+                Thank you, <span className="text-amber-300 font-semibold">{formData.name}</span>. An assigned VFX Producer from our <span className="text-amber-300 font-medium">Global Production Hub</span> will evaluate your requirements and contact you at <span className="text-amber-300 font-mono">{formData.email}</span> within 2 hours.
               </p>
               <button
                 onClick={() => setIsSubmitted(false)}
@@ -254,14 +254,14 @@ export default function Contact({ defaultService = '' }) {
               <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
               <div>
                 <div className="font-bold text-white">General Inquiries & Bidding:</div>
-                <div className="font-mono text-amber-300">producers@sunrisevfx.com</div>
+                <a href="mailto:info@sunrisevfx.com" className="font-mono text-amber-300 hover:underline">info@sunrisevfx.com</a>
               </div>
             </div>
 
             <div className="flex items-start gap-3 text-xs text-gray-300">
               <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <div className="font-bold text-white">US Production Hotline:</div>
+                <div className="font-bold text-white">Studio Hotline:</div>
                 <div className="font-mono text-gray-300">+1 (323) 555-0192</div>
               </div>
             </div>
@@ -269,8 +269,8 @@ export default function Contact({ defaultService = '' }) {
             <div className="flex items-start gap-3 text-xs text-gray-300">
               <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <div className="font-bold text-white">Global Headquarters:</div>
-                <div>Sunset Blvd, Hollywood, CA & Soho, London W1D</div>
+                <div className="font-bold text-white">Studio Address:</div>
+                <div className="leading-relaxed">No. 2-6-32, A Block 104, SVB Square, Vijayawada, Krishna district, Andhra Pradesh, India, 521139</div>
               </div>
             </div>
           </div>

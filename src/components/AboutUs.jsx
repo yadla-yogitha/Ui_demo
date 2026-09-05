@@ -1,6 +1,5 @@
-﻿import React from 'react';
-import { Sparkles, Shield, Cpu, Award, Lock, Zap, Building2 } from 'lucide-react';
-import { studioInfo } from '../data/studioData';
+import React from 'react';
+import { Sparkles, Shield, Cpu, Award, Lock, Zap } from 'lucide-react';
 
 export default function AboutUs({ onOpenQuote }) {
   return (
@@ -71,7 +70,7 @@ export default function AboutUs({ onOpenQuote }) {
               </div>
               <h4 className="font-bold text-sm text-white mb-1">24/7 Global Pipeline</h4>
               <p className="text-xs text-gray-400 leading-normal">
-                Continuous 3-shift pipeline across LA, London, Mumbai & Vancouver.
+                Continuous 24/7 delivery pipeline serving studios and productions worldwide across all timezones.
               </p>
             </div>
 
@@ -112,36 +111,10 @@ export default function AboutUs({ onOpenQuote }) {
             >
               Get Studio Consultation →
             </button>
-          </div>
-
         </div>
 
       </div>
-
-      {/* Global Studio Locations Grid */}
-      <div className="pt-6">
-        <h3 className="text-center font-cinzel text-xl sm:text-2xl font-bold text-white mb-8">
-          Global Production Hubs
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {studioInfo.locations.map((loc, idx) => (
-            <div key={idx} className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-amber-500/40 transition-all duration-300 group">
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-cinzel font-bold text-lg text-gold-bright group-hover:text-amber-300">
-                  {loc.city}
-                </span>
-                <Building2 className="w-4 h-4 text-amber-400/70" />
-              </div>
-              <p className="text-xs text-gray-400 mb-2">{loc.address}</p>
-              <div className="space-y-1 text-xs font-mono text-gray-300">
-                <div>{loc.phone}</div>
-                <div className="text-amber-400/80">{loc.email}</div>
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
-
     </section>
   );
 }

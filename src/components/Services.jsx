@@ -1,5 +1,5 @@
-﻿import React, { useState } from 'react';
-import { Sparkles, CheckCircle, ArrowRight, Layers, Film, Scissors, Cpu, Camera, Wrench, Shield, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, CheckCircle, ArrowRight, Layers, Film, Scissors, Cpu, Camera, Wrench, Shield, Clock, Play, X } from 'lucide-react';
 import { servicesData } from '../data/studioData';
 import BeforeAfterSlider from './BeforeAfterSlider';
 
@@ -13,6 +13,7 @@ const SERVICE_ICONS = {
 
 export default function Services({ selectedServiceId, onSelectService, onOpenQuoteWithService }) {
   const [activeTab, setActiveTab] = useState(selectedServiceId || 'prep');
+  const [activeReelModal, setActiveReelModal] = useState(null);
 
   const activeService = servicesData.find(s => s.id === activeTab) || servicesData[0];
   const IconComponent = SERVICE_ICONS[activeService.id] || Sparkles;
@@ -136,12 +137,20 @@ export default function Services({ selectedServiceId, onSelectService, onOpenQuo
                 <ArrowRight className="w-4 h-4" />
               </button>
 
+              <button
+                onClick={() => setActiveReelModal(activeService)}
+                className="flex items-center gap-2 px-5 py-3 rounded-xl glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 text-xs font-bold uppercase tracking-wider transition-colors hover:bg-amber-500/15 cursor-pointer shadow-md"
+              >
+                <Play className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <span>Watch {activeService.name} Reel</span>
+              </button>
+
               <a
                 href="#breakdowns"
-                className="flex items-center gap-2 px-5 py-3 rounded-xl glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 text-xs font-bold uppercase tracking-wider transition-colors"
+                className="flex items-center gap-2 px-5 py-3 rounded-xl glass-panel text-gray-300 hover:text-white border border-white/10 hover:border-amber-400/50 text-xs font-bold uppercase tracking-wider transition-colors"
               >
                 <Film className="w-4 h-4" />
-                <span>View {activeService.name} Breakdown</span>
+                <span>Before / After</span>
               </a>
             </div>
 
@@ -189,7 +198,7 @@ export default function Services({ selectedServiceId, onSelectService, onOpenQuo
                 {activeService.turnaround}
               </p>
               <p className="text-[11px] text-gray-400">
-                24/7 round-the-clock shift handoffs between London, LA, and Mumbai studios.
+                24/7 round-the-clock continuous delivery pipeline serving clients and productions worldwide across all timezones.
               </p>
             </div>
 
@@ -216,6 +225,67 @@ export default function Services({ selectedServiceId, onSelectService, onOpenQuo
 
         <BeforeAfterSlider initialServiceId={activeTab} />
       </div>
+
+      {/* Reel Video Player Modal */}
+      {activeReelModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200">
+          <div className="relative w-full max-w-4xl glass-panel rounded-3xl overflow-hidden border border-amber-500/50 p-4 sm:p-7 shadow-2xl bg-[#08080f] max-h-[92vh] flex flex-col">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3 gap-2">
+              <div className="flex items-center gap-2.5">
+                <span className="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono text-xs font-bold border border-amber-500/40">
+                  {activeReelModal.name} SHOWREEL
+                </span>
+                <h3 className="font-cinzel text-base sm:text-xl font-bold text-white truncate">
+                  {activeReelModal.title}
+                </h3>
+              </div>
+
+              <button
+                onClick={() => setActiveReelModal(null)}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition-colors shrink-0"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Video Player */}
+            <div className="relative rounded-2xl overflow-hidden bg-black border border-white/10 aspect-video shadow-2xl flex items-center justify-center">
+              <video
+                key={activeReelModal.reelVideo}
+                src={activeReelModal.reelVideo}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full object-contain bg-black"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <p className="text-gray-300 max-w-lg leading-relaxed">
+                {activeService.fullDesc}
+              </p>
+
+              <button
+                onClick={() => {
+                  const svcId = activeReelModal.id;
+                  setActiveReelModal(null);
+                  onOpenQuoteWithService(svcId);
+                }}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-gold-primary text-black font-bold text-xs uppercase tracking-wider shrink-0"
+              >
+                <span>Request {activeReelModal.name} Quote</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </section>
   );

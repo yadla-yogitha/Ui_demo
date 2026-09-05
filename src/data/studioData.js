@@ -1,18 +1,15 @@
-﻿export const studioInfo = {
+export const studioInfo = {
   name: 'SUNRISE VFX STUDIO',
   tagline: 'BRINGING IMAGINATION TO REALITY',
   description: 'We are a creative VFX studio delivering exceptional visual effects for films, commercials and digital content with passion, precision and perfection.',
   stats: [
-    { label: 'Feature Films & Shows', value: '180+' },
-    { label: 'Completed VFX Shots', value: '14,500+' },
+    { label: 'Feature Films & Shows', value: '25+' },
+    { label: 'Completed VFX Shots', value: '1500' },
     { label: 'Client Delivery Rate', value: '99.9%' },
     { label: 'Global Artists & TDs', value: '65+' },
   ],
   locations: [
-    { city: 'Los Angeles', address: 'Sunset Blvd, Hollywood, CA', phone: '+1 (323) 555-0192', email: 'la@sunrisevfx.com' },
-    { city: 'London', address: 'Soho Media Square, London W1D', phone: '+44 20 7946 0912', email: 'uk@sunrisevfx.com' },
-    { city: 'Mumbai', address: 'Film City Tech Hub, Goregaon', phone: '+91 22 2840 9922', email: 'mumbai@sunrisevfx.com' },
-    { city: 'Vancouver', address: 'Gastown VFX District, BC', phone: '+1 (604) 555-0148', email: 'van@sunrisevfx.com' },
+    { city: 'Vijayawada', address: 'No. 2-6-32, A Block 104, SVB Square, Vijayawada, Krishna district, Andhra Pradesh, India, 521139', phone: '+1 (323) 555-0192', email: 'info@sunrisevfx.com' },
   ],
 };
 
@@ -36,7 +33,8 @@ export const servicesData = [
     specs: 'ACEScg / Rec.709 / Linear EXR pipelines up to 8K resolution with floating-point precision.',
     turnaround: '24 - 48 Hours Standard Delivery',
     badge: 'Core VFX Discipline',
-    glowColor: 'from-amber-500/20 to-yellow-500/10'
+    glowColor: 'from-amber-500/20 to-yellow-500/10',
+    reelVideo: '/reels/prep_reel.mp4',
   },
   {
     id: 'roto',
@@ -57,7 +55,8 @@ export const servicesData = [
     specs: 'Sub-pixel accuracy, per-frame motion blur interpolation, Nuke script node trees.',
     turnaround: 'High-volume scalability (150+ shots/week)',
     badge: 'Industry Standard',
-    glowColor: 'from-yellow-500/20 to-amber-600/10'
+    glowColor: 'from-yellow-500/20 to-amber-600/10',
+    reelVideo: '/reels/roto_reel.mp4',
   },
   {
     id: 'comp',
@@ -78,7 +77,8 @@ export const servicesData = [
     specs: '32-bit Linear color grading, Cryptomatte pass extraction, ACES 1.3 color managed pipeline.',
     turnaround: 'Episodic, Commercial & Feature Film Grade',
     badge: 'Hero VFX Discipline',
-    glowColor: 'from-amber-400/20 to-yellow-600/10'
+    glowColor: 'from-amber-400/20 to-yellow-600/10',
+    reelVideo: '/reels/comp_reel.mp4',
   },
   {
     id: 'matchmove',
@@ -99,7 +99,8 @@ export const servicesData = [
     specs: 'Average solve residual < 0.4 pixels. Alembic / FBX camera exports with distortion metadata.',
     turnaround: 'Rapid camera solves within 12-24 hours',
     badge: 'Precision Engineering',
-    glowColor: 'from-yellow-400/20 to-amber-500/10'
+    glowColor: 'from-yellow-400/20 to-amber-500/10',
+    reelVideo: '/reels/matchmove_reel.mp4',
   },
   {
     id: 'ai-videos',
@@ -120,7 +121,8 @@ export const servicesData = [
     specs: 'Custom trained neural checkpoints, temporal consistency filters, seamless EXR integration.',
     turnaround: 'Rapid AI Concepting & 4X Accelerated Delivery',
     badge: 'Future of Cinema',
-    glowColor: 'from-amber-300/25 to-yellow-500/15'
+    glowColor: 'from-amber-300/25 to-yellow-500/15',
+    reelVideo: '/reels/comp_reel.mp4',
   }
 ];
 
@@ -134,8 +136,8 @@ export const breakdownsData = [
     description: 'Green screen live-action plate combined with 48 multi-pass CGI render layers, Houdini atmospheric thruster fire, and deep compositing optical flares.',
     beforeLabel: 'Raw Green Screen Plate',
     afterLabel: 'Final Hollywood Composite',
-    beforeImage: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+    beforeImage: '/breakdowns/comp_plate.jpg',
+    afterImage: '/breakdowns/comp_final.jpg',
     stats: { frames: '280 Frames', software: 'NukeX, Maya, Houdini', resolution: '4K DCI' }
   },
   {
@@ -147,21 +149,21 @@ export const breakdownsData = [
     description: 'Total digital removal of 6 safety cables, stunt crane harnesses, and camera tracking markers with dynamic mountain cliff texture reconstruction.',
     beforeLabel: 'Production Plate with Cables & Rig',
     afterLabel: 'Clean Restored Final Plate',
-    beforeImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+    beforeImage: '/breakdowns/prep_plate.jpg',
+    afterImage: '/breakdowns/prep_final.jpg',
     stats: { frames: '420 Frames', software: 'Silhouette, Nuke, Mocha', resolution: '4K Open Gate' }
   },
   {
     id: 'breakdown-roto',
     category: 'Roto',
     serviceId: 'roto',
-    title: 'Organic Character Hair & Motion Blur Isolation',
-    project: 'Valkyrie Chronicles (Series)',
-    description: 'Sub-pixel rotoscope extraction of high-velocity hair strands and cloak fabric during a heavy wind machine sequence for background replacement.',
-    beforeLabel: 'Complex Wind Plate',
-    afterLabel: 'Alpha Channel & Extracted Matte',
-    beforeImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1200&q=80',
+    title: 'Character Hair & Motion Blur Rotoscopy',
+    project: 'Sunrise VFX Production Plate',
+    description: 'Sub-pixel rotoscope extraction of high-velocity hair strands and motion blur curves during windy production footage for complete background replacement and seamless compositing.',
+    beforeLabel: 'Live Production Plate',
+    afterLabel: 'Alpha Matte & Roto Isolation',
+    beforeImage: '/breakdowns/roto_live_plate.png',
+    afterImage: '/breakdowns/roto_alpha_matte.png',
     stats: { frames: '190 Frames', software: 'Silhouette FX, Nuke', resolution: '4K ACEScg' }
   },
   {
@@ -173,8 +175,8 @@ export const breakdownsData = [
     description: 'Full 3D spatial solve of high-speed drone footage over urban architecture, extracting lens distortion grids for seamless CG skyscraper insertion.',
     beforeLabel: 'Raw Drone Footage Plate',
     afterLabel: '3D Point Cloud & Wireframe Solve',
-    beforeImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1508873696983-2df5703bc224?auto=format&fit=crop&w=1200&q=80',
+    beforeImage: '/breakdowns/matchmove_plate.jpg',
+    afterImage: '/breakdowns/matchmove_solve.jpg',
     stats: { frames: '350 Frames', software: '3DEqualizer 4, Maya', resolution: '6K RAW' }
   },
   {
@@ -186,10 +188,17 @@ export const breakdownsData = [
     description: 'Combining live-action studio set footage with neural generative world extensions, real-time lighting relighting, and AI-accelerated particle flow.',
     beforeLabel: 'Studio Stage Shot',
     afterLabel: 'AI Neural World Extension',
-    beforeImage: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1200&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80',
+    beforeImage: '/breakdowns/ai_plate.jpg',
+    afterImage: '/breakdowns/ai_final.jpg',
     stats: { frames: '500 Frames', software: 'ComfyUI, Stable Diffusion, Nuke', resolution: '4K Neural Upscaled' }
   }
+];
+
+export const studioReels = [
+  { id: 'comp', name: 'Compositing Reel', category: 'Comp', videoUrl: '/reels/comp_reel.mp4', desc: 'Deep compositing, photoreal CG integration, and multi-pass EXR' },
+  { id: 'prep', name: 'Paint & Prep Reel', category: 'Prep', videoUrl: '/reels/prep_reel.mp4', desc: 'Wire/rig removal, plate clean-up, and marker restoration' },
+  { id: 'roto', name: 'Rotoscopy Reel', category: 'Roto', videoUrl: '/reels/roto_reel.mp4', desc: 'Sub-pixel organic silhouettes, hair, fur, and motion blur isolation' },
+  { id: 'matchmove', name: 'Matchmove Reel', category: 'Matchmove', videoUrl: '/reels/matchmove_reel.mp4', desc: '3D camera motion tracking, object solving, and lens calibration' },
 ];
 
 export const portfolioProjects = [
@@ -200,6 +209,7 @@ export const portfolioProjects = [
     client: 'Paramount / Streaming',
     year: '2025',
     thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/comp_reel.mp4',
     shotsCount: '140 Shots',
     tags: ['Comp', '3D CG Integration', 'Deep EXR'],
     description: 'Complex deep compositing, photoreal space battles, and planetary atmosphere renderings.'
@@ -210,7 +220,8 @@ export const portfolioProjects = [
     category: 'Roto',
     client: 'Warner Bros. Discovery',
     year: '2025',
-    thumbnail: 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80',
+    thumbnail: '/breakdowns/roto_live_plate.png',
+    videoUrl: '/reels/roto_reel.mp4',
     shotsCount: '220 Shots',
     tags: ['Roto', 'Hair Detail', 'Motion Blur'],
     description: 'Intricate rotoscope isolation for high-speed martial arts combat with weapon trailing.'
@@ -222,6 +233,7 @@ export const portfolioProjects = [
     client: 'Global Automotive Brand',
     year: '2024',
     thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/prep_reel.mp4',
     shotsCount: '85 Shots',
     tags: ['Prep', 'Rig Removal', 'Plate Restoration'],
     description: 'High-speed camera crane removal and reflective vehicle body scratch elimination.'
@@ -233,6 +245,7 @@ export const portfolioProjects = [
     client: 'Netflix Originals',
     year: '2025',
     thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/matchmove_reel.mp4',
     shotsCount: '190 Shots',
     tags: ['Matchmove', '3D Camera Tracking', 'LiDAR'],
     description: 'Complex handheld and vehicle camera tracks with millimeter precision.'
@@ -244,6 +257,7 @@ export const portfolioProjects = [
     client: 'Sony Pictures Imageworks',
     year: '2025',
     thumbnail: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/comp_reel.mp4',
     shotsCount: '65 Shots',
     tags: ['AI Videos', 'Neural Inpainting', 'Gen-3'],
     description: 'Generative environment expansion and neural de-aging for flashback sequences.'
@@ -255,9 +269,11 @@ export const portfolioProjects = [
     client: 'EA / Respawn',
     year: '2024',
     thumbnail: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/comp_reel.mp4',
     shotsCount: '110 Shots',
     tags: ['Comp', 'Pyrotechnics', 'Volumetric Lighting'],
     description: 'Stylized cinematic lighting and explosive energy effects compositing.'
+    
   }
 ];
 

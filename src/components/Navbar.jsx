@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Sparkles, ChevronRight } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -6,7 +6,6 @@ const NAV_LINKS = [
   { name: 'ABOUT US', href: '#about' },
   { name: 'SERVICES', href: '#services' },
   { name: 'PORTFOLIO', href: '#portfolio' },
-  { name: 'OUR TEAM', href: '#team' },
   { name: 'CAREERS', href: '#careers' },
   { name: 'BLOG', href: '#blog' },
   { name: 'CONTACT US', href: '#contact' },

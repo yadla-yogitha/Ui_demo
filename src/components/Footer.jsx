@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { ArrowUp, ShieldCheck, Check } from 'lucide-react';
 import { servicesData } from '../data/studioData';
 
@@ -87,7 +87,6 @@ export default function Footer({ onSelectService, onOpenQuote }) {
               <li><a href="#services" className="hover:text-amber-300 transition-colors">Services</a></li>
               <li><a href="#breakdowns" className="hover:text-amber-300 transition-colors">VFX Breakdowns</a></li>
               <li><a href="#portfolio" className="hover:text-amber-300 transition-colors">Showreel Portfolio</a></li>
-              <li><a href="#team" className="hover:text-amber-300 transition-colors">Our Team</a></li>
               <li><a href="#careers" className="hover:text-amber-300 transition-colors">Careers</a></li>
               <li><a href="#blog" className="hover:text-amber-300 transition-colors">Tech Journal</a></li>
               <li><a href="#contact" className="hover:text-amber-300 transition-colors">Contact Us</a></li>

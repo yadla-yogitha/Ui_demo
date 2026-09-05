@@ -1,11 +1,10 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import BackgroundVideo from './components/BackgroundVideo';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import AboutUs from './components/AboutUs';
 import Portfolio from './components/Portfolio';
-import OurTeam from './components/OurTeam';
 import Careers from './components/Careers';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
@@ -62,9 +61,6 @@ export default function App() {
 
           {/* Portfolio & Showreel Grid with Category Filters */}
           <Portfolio onOpenQuote={() => handleOpenQuote('comp')} />
-
-          {/* Our Team Section */}
-          <OurTeam />
 
           {/* Careers & Job Portal */}
           <Careers />

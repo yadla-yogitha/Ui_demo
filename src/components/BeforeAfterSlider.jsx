@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Sparkles, MoveHorizontal, CheckCircle2, Layers, Sliders } from 'lucide-react';
 import { breakdownsData } from '../data/studioData';
 
@@ -9,6 +9,16 @@ export default function BeforeAfterSlider({ initialServiceId = 'comp' }) {
   const [sliderPosition, setSliderPosition] = useState(50); // percentage (0 to 100)
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (initialServiceId) {
+      const match = breakdownsData.find(b => b.serviceId === initialServiceId);
+      if (match) {
+        setActiveBreakdownId(match.id);
+        setSliderPosition(50);
+      }
+    }
+  }, [initialServiceId]);
 
   const activeBreakdown = breakdownsData.find(b => b.id === activeBreakdownId) || breakdownsData[0];
 
@@ -100,35 +110,34 @@ export default function BeforeAfterSlider({ initialServiceId = 'comp' }) {
           onMouseLeave={handleMouseUp}
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
-          className="relative h-[340px] sm:h-[420px] md:h-[500px] w-full select-none cursor-ew-resize overflow-hidden bg-black"
+          className="relative h-[340px] sm:h-[420px] md:h-[520px] w-full select-none cursor-ew-resize overflow-hidden bg-black"
         >
           {/* AFTER Image (Full background layer) */}
-          <div className="absolute inset-0 w-full h-full">
-            <img
-              src={activeBreakdown.afterImage}
-              alt="Final VFX Output"
-              className="w-full h-full object-cover select-none pointer-events-none"
-            />
-            {/* After Label Badge */}
-            <div className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-xl bg-black/80 backdrop-blur-md border border-amber-500/50 text-amber-300 font-bold text-xs shadow-lg flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
-              <span>{activeBreakdown.afterLabel}</span>
-            </div>
+          <img
+            key={`after-${activeBreakdown.id}`}
+            src={activeBreakdown.afterImage}
+            alt={activeBreakdown.afterLabel}
+            className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+          />
+
+          {/* After Label Badge */}
+          <div className="absolute top-4 right-4 z-10 px-3.5 py-1.5 rounded-xl bg-black/80 backdrop-blur-md border border-amber-500/50 text-amber-300 font-bold text-xs shadow-lg flex items-center gap-1.5 pointer-events-none">
+            <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+            <span>{activeBreakdown.afterLabel}</span>
           </div>
 
-          {/* BEFORE Image (Clipped overlay) */}
+          {/* BEFORE Image (Clipped overlay with clipPath) */}
           <div
-            className="absolute inset-0 h-full overflow-hidden select-none pointer-events-none"
-            style={{ width: sliderPosition + '%' }}
+            className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-hidden"
+            style={{
+              clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`
+            }}
           >
             <img
+              key={`before-${activeBreakdown.id}`}
               src={activeBreakdown.beforeImage}
-              alt="Raw Plate"
-              className="absolute inset-0 w-full h-full object-cover max-w-none"
-              style={{
-                width: containerRef.current ? containerRef.current.clientWidth + 'px' : '100%',
-                height: '100%',
-              }}
+              alt={activeBreakdown.beforeLabel}
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
             />
             {/* Before Label Badge */}
             <div className="absolute top-4 left-4 z-10 px-3.5 py-1.5 rounded-xl bg-black/80 backdrop-blur-md border border-white/20 text-gray-200 font-bold text-xs shadow-lg flex items-center gap-1.5">
@@ -139,10 +148,10 @@ export default function BeforeAfterSlider({ initialServiceId = 'comp' }) {
 
           {/* Draggable Divider Line with Glowing Handle */}
           <div
-            className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 shadow-[0_0_15px_#facc15] cursor-ew-resize z-20"
-            style={{ left: 'calc(' + sliderPosition + '% - 2px)' }}
+            className="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-amber-200 via-amber-400 to-amber-600 shadow-[0_0_15px_#facc15] cursor-ew-resize z-20 pointer-events-none"
+            style={{ left: `${sliderPosition}%` }}
           >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-[0_0_25px_rgba(234,179,8,0.8)] border-2 border-white transform hover:scale-110 active:scale-95 transition-transform">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-amber-400 text-black flex items-center justify-center shadow-[0_0_25px_rgba(234,179,8,0.8)] border-2 border-white transform hover:scale-110 active:scale-95 transition-transform pointer-events-auto">
               <MoveHorizontal className="w-5 h-5 stroke-[2.5]" />
             </div>
           </div>
