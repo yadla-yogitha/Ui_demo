@@ -122,7 +122,7 @@ export const servicesData = [
     turnaround: 'Rapid AI Concepting & 4X Accelerated Delivery',
     badge: 'Future of Cinema',
     glowColor: 'from-amber-300/25 to-yellow-500/15',
-    reelVideo: '/reels/comp_reel.mp4',
+    reelVideo: '/reels/ai_reel.mp4',
   }
 ];
 
@@ -273,7 +273,7 @@ export const portfolioProjects = [
     shotsCount: '110 Shots',
     tags: ['Comp', 'Pyrotechnics', 'Volumetric Lighting'],
     description: 'Stylized cinematic lighting and explosive energy effects compositing.'
-    
+
   }
 ];
 
