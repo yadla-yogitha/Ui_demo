@@ -199,6 +199,7 @@ export const studioReels = [
   { id: 'prep', name: 'Paint & Prep Reel', category: 'Prep', videoUrl: '/reels/prep_reel.mp4', desc: 'Wire/rig removal, plate clean-up, and marker restoration' },
   { id: 'roto', name: 'Rotoscopy Reel', category: 'Roto', videoUrl: '/reels/roto_reel.mp4', desc: 'Sub-pixel organic silhouettes, hair, fur, and motion blur isolation' },
   { id: 'matchmove', name: 'Matchmove Reel', category: 'Matchmove', videoUrl: '/reels/matchmove_reel.mp4', desc: '3D camera motion tracking, object solving, and lens calibration' },
+  { id: 'ai-videos', name: 'AI Videos Reel', category: 'AI Videos', videoUrl: '/reels/ai_reel.mp4', desc: 'Generative AI, neural inpainting, and next-gen neural VFX pipelines' },
 ];
 
 export const portfolioProjects = [
@@ -257,10 +258,22 @@ export const portfolioProjects = [
     client: 'Sony Pictures Imageworks',
     year: '2025',
     thumbnail: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80',
-    videoUrl: '/reels/comp_reel.mp4',
+    videoUrl: '/reels/ai_reel.mp4',
     shotsCount: '65 Shots',
     tags: ['AI Videos', 'Neural Inpainting', 'Gen-3'],
     description: 'Generative environment expansion and neural de-aging for flashback sequences.'
+  },
+  {
+    id: 'p7',
+    title: 'AI Studio Showreel 2025',
+    category: 'AI Videos',
+    client: 'Sunrise VFX Studio',
+    year: '2025',
+    thumbnail: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/ai_reel.mp4',
+    shotsCount: '120 Shots',
+    tags: ['AI Videos', 'Generative AI', 'Neural VFX'],
+    description: 'Full studio AI showreel — neural rendering, generative world synthesis, and 8K AI super-resolution.'
   },
   {
     id: 'p6',
