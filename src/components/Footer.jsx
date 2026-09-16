@@ -132,7 +132,7 @@ export default function Footer({ onSelectService, onOpenQuote }) {
               onClick={onOpenQuote}
               className="w-full py-2.5 rounded-xl glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 font-bold uppercase tracking-wider text-[11px] transition-colors"
             >
-              Launch Shot Cost Estimator
+              Request Studio Quote & Bidding
             </button>
           </div>
 

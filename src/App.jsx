@@ -9,16 +9,18 @@ import Careers from './components/Careers';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import QuoteCalculator from './components/QuoteCalculator';
-
 export default function App() {
-  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
-  const [quoteServiceId, setQuoteServiceId] = useState('prep');
+  const [contactServiceId, setContactServiceId] = useState('prep');
   const [activeSelectedServiceId, setActiveSelectedServiceId] = useState('prep');
 
-  const handleOpenQuote = (serviceId = 'prep') => {
-    setQuoteServiceId(serviceId);
-    setIsQuoteOpen(true);
+  const handleScrollToContact = (serviceId = 'prep') => {
+    if (serviceId) {
+      setContactServiceId(serviceId);
+    }
+    const el = document.getElementById('contact');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleSelectServiceFromHero = (serviceId) => {
@@ -39,28 +41,27 @@ export default function App() {
       <div className="relative z-10 flex flex-col min-h-screen">
         
         {/* Navigation Bar */}
-        <Navbar onOpenQuote={() => handleOpenQuote('prep')} />
+        <Navbar onOpenQuote={() => handleScrollToContact('prep')} />
 
         {/* Main Content Sections */}
         <main className="flex-grow">
           {/* Hero Section matching the user's reference mockup */}
           <Hero 
             onSelectService={handleSelectServiceFromHero}
-            onOpenQuote={() => handleOpenQuote('prep')}
           />
 
           {/* 5 Core Disciplines Showcase: 1. Prep, 2. Roto, 3. Comp, 4. Matchmove, 5. AI Videos */}
           <Services 
             selectedServiceId={activeSelectedServiceId}
             onSelectService={setActiveSelectedServiceId}
-            onOpenQuoteWithService={(svcId) => handleOpenQuote(svcId)}
+            onOpenQuoteWithService={(svcId) => handleScrollToContact(svcId)}
           />
 
           {/* About Us Section with Studio Vision & TPN Gold Security */}
-          <AboutUs onOpenQuote={() => handleOpenQuote('prep')} />
+          <AboutUs onOpenQuote={() => handleScrollToContact('prep')} />
 
           {/* Portfolio & Showreel Grid with Category Filters */}
-          <Portfolio onOpenQuote={() => handleOpenQuote('comp')} />
+          <Portfolio onOpenQuote={() => handleScrollToContact('comp')} />
 
           {/* Careers & Job Portal */}
           <Careers />
@@ -69,23 +70,16 @@ export default function App() {
           <Blog />
 
           {/* Contact Us & Project Bidding */}
-          <Contact defaultService={quoteServiceId} />
+          <Contact defaultService={contactServiceId} />
         </main>
 
         {/* Studio Footer */}
         <Footer 
           onSelectService={handleSelectServiceFromHero}
-          onOpenQuote={() => handleOpenQuote('prep')}
+          onOpenQuote={() => handleScrollToContact('prep')}
         />
 
       </div>
-
-      {/* Interactive VFX Shot Quote Calculator Modal */}
-      <QuoteCalculator 
-        isOpen={isQuoteOpen}
-        onClose={() => setIsQuoteOpen(false)}
-        initialService={quoteServiceId}
-      />
 
     </div>
   );

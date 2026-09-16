@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Mail, Phone, MapPin, Send, CheckCircle2, Shield } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -15,6 +15,12 @@ export default function Contact({ defaultService = '' }) {
     ndaRequired: true
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (defaultService) {
+      setFormData(prev => ({ ...prev, service: defaultService }));
+    }
+  }, [defaultService]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
