@@ -128,19 +128,6 @@ export const servicesData = [
 
 export const breakdownsData = [
   {
-    id: 'breakdown-comp',
-    category: 'Comp',
-    serviceId: 'comp',
-    title: 'Sci-Fi Cruiser Orbital Strike',
-    project: 'Nebula Protocol (Feature Film)',
-    description: 'Green screen live-action plate combined with 48 multi-pass CGI render layers, Houdini atmospheric thruster fire, and deep compositing optical flares.',
-    beforeLabel: 'Raw Green Screen Plate',
-    afterLabel: 'Final Hollywood Composite',
-    beforeImage: '/breakdowns/comp_plate.jpg',
-    afterImage: '/breakdowns/comp_final.jpg',
-    stats: { frames: '280 Frames', software: 'NukeX, Maya, Houdini', resolution: '4K DCI' }
-  },
-  {
     id: 'breakdown-prep',
     category: 'Prep',
     serviceId: 'prep',
@@ -165,6 +152,19 @@ export const breakdownsData = [
     beforeImage: '/breakdowns/roto_live_plate.png',
     afterImage: '/breakdowns/roto_alpha_matte.png',
     stats: { frames: '190 Frames', software: 'Silhouette FX, Nuke', resolution: '4K ACEScg' }
+  },
+  {
+    id: 'breakdown-comp',
+    category: 'Comp',
+    serviceId: 'comp',
+    title: 'Sci-Fi Cruiser Orbital Strike',
+    project: 'Nebula Protocol (Feature Film)',
+    description: 'Green screen live-action plate combined with 48 multi-pass CGI render layers, Houdini atmospheric thruster fire, and deep compositing optical flares.',
+    beforeLabel: 'Raw Green Screen Plate',
+    afterLabel: 'Final Hollywood Composite',
+    beforeImage: '/breakdowns/comp_plate.jpg',
+    afterImage: '/breakdowns/comp_final.jpg',
+    stats: { frames: '280 Frames', software: 'NukeX, Maya, Houdini', resolution: '4K DCI' }
   },
   {
     id: 'breakdown-matchmove',
@@ -195,25 +195,25 @@ export const breakdownsData = [
 ];
 
 export const studioReels = [
-  { id: 'comp', name: 'Compositing Reel', category: 'Comp', videoUrl: '/reels/comp_reel.mp4', desc: 'Deep compositing, photoreal CG integration, and multi-pass EXR' },
   { id: 'prep', name: 'Paint & Prep Reel', category: 'Prep', videoUrl: '/reels/prep_reel.mp4', desc: 'Wire/rig removal, plate clean-up, and marker restoration' },
   { id: 'roto', name: 'Rotoscopy Reel', category: 'Roto', videoUrl: '/reels/roto_reel.mp4', desc: 'Sub-pixel organic silhouettes, hair, fur, and motion blur isolation' },
+  { id: 'comp', name: 'Compositing Reel', category: 'Comp', videoUrl: '/reels/comp_reel.mp4', desc: 'Deep compositing, photoreal CG integration, and multi-pass EXR' },
   { id: 'matchmove', name: 'Matchmove Reel', category: 'Matchmove', videoUrl: '/reels/matchmove_reel.mp4', desc: '3D camera motion tracking, object solving, and lens calibration' },
   { id: 'ai-videos', name: 'AI Videos Reel', category: 'AI Videos', videoUrl: '/reels/ai_reel.mp4', desc: 'Generative AI, neural inpainting, and next-gen neural VFX pipelines' },
 ];
 
 export const portfolioProjects = [
   {
-    id: 'p1',
-    title: 'Starship Odyssey',
-    category: 'Comp',
-    client: 'Paramount / Streaming',
-    year: '2025',
-    thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-    videoUrl: '/reels/comp_reel.mp4',
-    shotsCount: '140 Shots',
-    tags: ['Comp', '3D CG Integration', 'Deep EXR'],
-    description: 'Complex deep compositing, photoreal space battles, and planetary atmosphere renderings.'
+    id: 'p3',
+    title: 'Hyperdrive Tokyo',
+    category: 'Prep',
+    client: 'Global Automotive Brand',
+    year: '2024',
+    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/prep_reel.mp4',
+    shotsCount: '85 Shots',
+    tags: ['Prep', 'Rig Removal', 'Plate Restoration'],
+    description: 'High-speed camera crane removal and reflective vehicle body scratch elimination.'
   },
   {
     id: 'p2',
@@ -228,16 +228,16 @@ export const portfolioProjects = [
     description: 'Intricate rotoscope isolation for high-speed martial arts combat with weapon trailing.'
   },
   {
-    id: 'p3',
-    title: 'Hyperdrive Tokyo',
-    category: 'Prep',
-    client: 'Global Automotive Brand',
-    year: '2024',
-    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
-    videoUrl: '/reels/prep_reel.mp4',
-    shotsCount: '85 Shots',
-    tags: ['Prep', 'Rig Removal', 'Plate Restoration'],
-    description: 'High-speed camera crane removal and reflective vehicle body scratch elimination.'
+    id: 'p1',
+    title: 'Starship Odyssey',
+    category: 'Comp',
+    client: 'Paramount / Streaming',
+    year: '2025',
+    thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+    videoUrl: '/reels/comp_reel.mp4',
+    shotsCount: '140 Shots',
+    tags: ['Comp', '3D CG Integration', 'Deep EXR'],
+    description: 'Complex deep compositing, photoreal space battles, and planetary atmosphere renderings.'
   },
   {
     id: 'p4',
@@ -262,31 +262,6 @@ export const portfolioProjects = [
     shotsCount: '65 Shots',
     tags: ['AI Videos', 'Neural Inpainting', 'Gen-3'],
     description: 'Generative environment expansion and neural de-aging for flashback sequences.'
-  },
-  {
-    id: 'p7',
-    title: 'AI Studio Showreel 2025',
-    category: 'AI Videos',
-    client: 'Sunrise VFX Studio',
-    year: '2025',
-    thumbnail: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80',
-    videoUrl: '/reels/ai_reel.mp4',
-    shotsCount: '120 Shots',
-    tags: ['AI Videos', 'Generative AI', 'Neural VFX'],
-    description: 'Full studio AI showreel — neural rendering, generative world synthesis, and 8K AI super-resolution.'
-  },
-  {
-    id: 'p6',
-    title: 'Apex Legends: Cinematic Trailer',
-    category: 'Comp',
-    client: 'EA / Respawn',
-    year: '2024',
-    thumbnail: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80',
-    videoUrl: '/reels/comp_reel.mp4',
-    shotsCount: '110 Shots',
-    tags: ['Comp', 'Pyrotechnics', 'Volumetric Lighting'],
-    description: 'Stylized cinematic lighting and explosive energy effects compositing.'
-
   }
 ];
 
@@ -297,6 +272,13 @@ export const teamMembers = [
     bio: '18+ years leading VFX on Oscar-nominated feature films and blockbuster franchises.',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80',
     credits: 'Avengers: Endgame, Dune Part 2, Avatar'
+  },
+  {
+    name: 'Sarah Jenkins',
+    role: 'Prep & Roto Department Lead',
+    bio: 'Oversees 40+ senior prep and roto artists delivering clean plates and sub-pixel mattes worldwide.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80',
+    credits: 'Marvel Studios, HBO Max, Disney+'
   },
   {
     name: 'Elena Rostova',
@@ -318,19 +300,30 @@ export const teamMembers = [
     bio: 'Ex-DeepMind neural rendering researcher bridging generative diffusion with Nuke node graphs.',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80',
     credits: 'Neural VFX Patents, Siggraph 2024 Presenter'
-  },
-  {
-    name: 'Sarah Jenkins',
-    role: 'Roto & Prep Department Lead',
-    bio: 'Oversees 40+ senior roto/prep artists delivering clean plates and sub-pixel mattes worldwide.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80',
-    credits: 'Marvel Studios, HBO Max, Disney+'
   }
 ];
 
 export const openJobs = [
   {
-    id: 'job-1',
+    id: 'job-prep',
+    title: 'Senior Prep & Clean-up Artist',
+    department: 'Prep Department',
+    location: 'Remote / London / Mumbai',
+    type: 'Full-time',
+    exp: '3+ Years Feature Experience',
+    desc: 'Expert wire/rig removal, marker clean-up, complex texture projection, and digital plate restoration.'
+  },
+  {
+    id: 'job-roto',
+    title: 'Senior Roto / Silhouette Artist',
+    department: 'Roto Department',
+    location: 'Remote / Global',
+    type: 'Full-time',
+    exp: '3+ Years Industry Experience',
+    desc: 'Deliver pristine sub-pixel organic mattes, complex hair roto, and stereoscopic depth isolation.'
+  },
+  {
+    id: 'job-comp',
     title: 'Senior Nuke Compositor',
     department: 'Compositing',
     location: 'Remote / Los Angeles',
@@ -339,27 +332,18 @@ export const openJobs = [
     desc: 'Lead hero shot composites, multi-pass CGI integration, and deep compositing workflows on major studio productions.'
   },
   {
-    id: 'job-2',
-    title: 'Senior Roto / Silhouette Artist',
-    department: 'Roto & Prep',
-    location: 'Remote / London / Mumbai',
-    type: 'Full-time',
-    exp: '3+ Years Industry Experience',
-    desc: 'Deliver pristine sub-pixel organic mattes, complex hair roto, and stereoscopic depth isolation.'
-  },
-  {
-    id: 'job-3',
+    id: 'job-matchmove',
     title: 'Lead 3D Matchmove TD',
-    department: 'Tracking',
+    department: 'Matchmove & Tracking',
     location: 'Remote / Vancouver',
     type: 'Full-time',
     exp: '4+ Years in 3DEqualizer',
     desc: 'Solve complex drone, handheld, and moving object shots with precise lens distortion maps and LiDAR alignment.'
   },
   {
-    id: 'job-4',
+    id: 'job-ai',
     title: 'AI VFX Pipeline Engineer',
-    department: 'Research & AI',
+    department: 'AI Videos & Research',
     location: 'Remote / Global',
     type: 'Full-time',
     exp: 'Python, PyTorch, ComfyUI, Nuke API',
@@ -369,17 +353,17 @@ export const openJobs = [
 
 export const blogPosts = [
   {
-    id: 'b1',
-    title: 'Bridging Nuke Deep Compositing with Neural Video Synthesis',
-    category: 'AI & Comp',
-    date: 'Aug 20, 2026',
-    readTime: '6 min read',
-    author: 'Elena Rostova & Dr. Hiroshi Tanaka',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
-    snippet: 'Explore how combining 32-bit floating point deep EXR data with temporal neural inpainting reduces prep turnaround by 70%.'
+    id: 'b-prep',
+    title: 'Next-Gen Digital Plate Restoration & Complex Rig Removal',
+    category: 'Prep Techniques',
+    date: 'Aug 24, 2026',
+    readTime: '5 min read',
+    author: 'Sarah Jenkins',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    snippet: 'Best practices for seamless wire and rig extraction, marker inpainting, and reconstructing complex grain patterns on high-motion plates.'
   },
   {
-    id: 'b2',
+    id: 'b-roto',
     title: 'Mastering Hair & Motion Blur Roto in Silhouette FX',
     category: 'Roto Techniques',
     date: 'Aug 14, 2026',
@@ -389,7 +373,17 @@ export const blogPosts = [
     snippet: 'Practical tips for handling high-frequency hair detail, motion blur sub-sampling, and avoiding edge chatter in final comps.'
   },
   {
-    id: 'b3',
+    id: 'b-comp',
+    title: 'Deep Compositing Workflows & Multi-Pass CGI Integration in Nuke',
+    category: 'Comp Deep Dive',
+    date: 'Aug 08, 2026',
+    readTime: '7 min read',
+    author: 'Elena Rostova',
+    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+    snippet: 'How combining 32-bit floating point deep EXR data, cryptomattes, and multi-pass lighting renders produces photorealistic cinematic integration.'
+  },
+  {
+    id: 'b-matchmove',
     title: 'Solving Impossible Drone Shots in 3DEqualizer 4',
     category: 'Matchmove Guide',
     date: 'Jul 29, 2026',
@@ -397,5 +391,15 @@ export const blogPosts = [
     author: 'Marcus Vance',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
     snippet: 'A deep dive into dynamic rolling shutter compensation, variable focal length solving, and survey point registration.'
+  },
+  {
+    id: 'b-ai',
+    title: 'Bridging Nuke Deep Compositing with Neural Video Synthesis',
+    category: 'AI Videos',
+    date: 'Jul 15, 2026',
+    readTime: '6 min read',
+    author: 'Dr. Hiroshi Tanaka',
+    image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80',
+    snippet: 'Explore how combining generative diffusion models and temporal neural inpainting accelerates pre-vis and VFX turnarounds by 4X.'
   }
 ];

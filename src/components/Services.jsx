@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, CheckCircle, ArrowRight, Layers, Film, Scissors, Cpu, Camera, Wrench, Shield, Clock, Play, X } from 'lucide-react';
+import { Sparkles, CheckCircle, Layers, Film, Scissors, Cpu, Camera, Wrench, Shield, Clock, Play, X } from 'lucide-react';
 import { servicesData } from '../data/studioData';
 import BeforeAfterSlider from './BeforeAfterSlider';
 
@@ -11,12 +11,11 @@ const SERVICE_ICONS = {
   'ai-videos': Cpu,
 };
 
-export default function Services({ selectedServiceId, onSelectService, onOpenQuoteWithService }) {
+export default function Services({ selectedServiceId, onSelectService }) {
   const [activeTab, setActiveTab] = useState(selectedServiceId || 'prep');
   const [activeReelModal, setActiveReelModal] = useState(null);
 
   const activeService = servicesData.find(s => s.id === activeTab) || servicesData[0];
-  const IconComponent = SERVICE_ICONS[activeService.id] || Sparkles;
 
   const handleTabChange = (serviceId) => {
     setActiveTab(serviceId);
@@ -130,18 +129,10 @@ export default function Services({ selectedServiceId, onSelectService, onOpenQuo
             {/* Action CTAs */}
             <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-white/10">
               <button
-                onClick={() => onOpenQuoteWithService(activeService.id)}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl btn-gold-primary text-black font-bold text-xs uppercase tracking-wider shadow-lg"
-              >
-                <span>Request {activeService.name} Quote</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
                 onClick={() => setActiveReelModal(activeService)}
-                className="flex items-center gap-2 px-5 py-3 rounded-xl glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 text-xs font-bold uppercase tracking-wider transition-colors hover:bg-amber-500/15 cursor-pointer shadow-md"
+                className="flex items-center gap-2 px-6 py-3 rounded-xl btn-gold-primary text-black font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] transition-all cursor-pointer"
               >
-                <Play className="w-4 h-4 fill-amber-400 text-amber-400" />
+                <Play className="w-4 h-4 fill-black text-black" />
                 <span>Watch {activeService.name} Reel</span>
               </button>
 
@@ -265,22 +256,10 @@ export default function Services({ selectedServiceId, onSelectService, onOpenQuo
             </div>
 
             {/* Modal Footer */}
-            <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
-              <p className="text-gray-300 max-w-lg leading-relaxed">
+            <div className="mt-4 pt-3 border-t border-white/10 text-xs">
+              <p className="text-gray-300 leading-relaxed">
                 {activeService.fullDesc}
               </p>
-
-              <button
-                onClick={() => {
-                  const svcId = activeReelModal.id;
-                  setActiveReelModal(null);
-                  onOpenQuoteWithService(svcId);
-                }}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-gold-primary text-black font-bold text-xs uppercase tracking-wider shrink-0"
-              >
-                <span>Request {activeReelModal.name} Quote</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
 
           </div>

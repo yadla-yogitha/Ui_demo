@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Briefcase, MapPin, ArrowRight, X, Check, Upload, Link as LinkIcon } from 'lucide-react';
 import { openJobs } from '../data/studioData';
 import confetti from 'canvas-confetti';
@@ -41,7 +41,7 @@ export default function Careers() {
           Careers at Sunrise VFX
         </h2>
         <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-          Shape the future of cinema. We are always seeking passionate compositors, roto masters, tracking wizards, and AI researchers. Remote and studio-based options available worldwide.
+          Shape the future of cinema. We are always seeking passionate prep & cleanup artists, roto masters, compositors, matchmove TDs, and AI researchers. Remote and studio-based options available worldwide.
         </p>
       </div>
 
@@ -97,7 +97,7 @@ export default function Careers() {
             Don't see your specific role?
           </h3>
           <p className="text-xs text-gray-300">
-            We are always scouting for top talent in Prep, Roto, Comp, Matchmove, and AI R&D. Send us your reel.
+            We are always scouting for top talent in Prep, Roto, Comp, Matchmove, and AI Videos. Send us your reel.
           </p>
         </div>
         <button

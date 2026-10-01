@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowUp, ShieldCheck, Check } from 'lucide-react';
 import { servicesData } from '../data/studioData';
 
-export default function Footer({ onSelectService, onOpenQuote }) {
+export default function Footer({ onSelectService }) {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -93,7 +93,7 @@ export default function Footer({ onSelectService, onOpenQuote }) {
             </ul>
           </div>
 
-          {/* Col 4: Newsletter & Quote (3 cols) */}
+          {/* Col 4: Newsletter (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="font-cinzel font-bold text-white text-sm tracking-wider uppercase">
               Studio Newsletter
@@ -127,13 +127,6 @@ export default function Footer({ onSelectService, onOpenQuote }) {
                 </button>
               </form>
             )}
-
-            <button
-              onClick={onOpenQuote}
-              className="w-full py-2.5 rounded-xl glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 font-bold uppercase tracking-wider text-[11px] transition-colors"
-            >
-              Request Studio Quote & Bidding
-            </button>
           </div>
 
         </div>

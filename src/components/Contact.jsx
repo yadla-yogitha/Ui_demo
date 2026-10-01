@@ -1,45 +1,98 @@
-import React, { useState, useEffect } from 'react';
-import { Sparkles, Mail, Phone, MapPin, Send, CheckCircle2, Shield } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, Shield, User, Building2, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
-export default function Contact({ defaultService = '' }) {
+const WEBHOOK_URL = import.meta.env.VITE_EXCEL_WEBHOOK_URL || '';
+
+export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    studio: '',
-    service: defaultService || 'comp',
-    projectType: 'Feature Film',
-    shotCount: '1-5 Shots',
-    deadline: '2-3 Weeks',
-    message: '',
-    ndaRequired: true
+    company: '',
+    email: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    if (defaultService) {
-      setFormData(prev => ({ ...prev, service: defaultService }));
-    }
-  }, [defaultService]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.name) {
-      alert('Please fill in required fields.');
+    setErrorMessage('');
+
+    if (!formData.name.trim() || !formData.company.trim() || !formData.email.trim()) {
+      setErrorMessage('Please fill in all 3 required fields: Name, Production / Company, and Business Email.');
       return;
     }
-    setIsSubmitted(true);
-    confetti({
-      particleCount: 90,
-      spread: 60,
-      origin: { y: 0.6 },
-      colors: ['#eab308', '#facc15', '#fbbf24', '#ffffff']
-    });
+
+    if (!WEBHOOK_URL) {
+      setErrorMessage('VITE_EXCEL_WEBHOOK_URL is not set in your .env file. Please add your SheetDB or Formspree endpoint.');
+      return;
+    }
+
+    if (WEBHOOK_URL.includes('excel.cloud.microsoft') || WEBHOOK_URL.includes('onedrive.live.com')) {
+      setErrorMessage(
+        'The URL in .env is an interactive OneDrive viewer link, which browsers block with CORS. To save directly to your spreadsheet, please use your SheetDB endpoint (https://sheetdb.io/api/v1/...) or Formspree endpoint (https://formspree.io/f/...) in your .env file.'
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const isSheetDB = WEBHOOK_URL.includes('sheetdb.io');
+    const payload = isSheetDB
+      ? {
+          data: [
+            {
+              Name: formData.name.trim(),
+              "Production or Company": formData.company.trim(),
+              "Business Email": formData.email.trim(),
+              Date: new Date().toLocaleString()
+            }
+          ]
+        }
+      : {
+          name: formData.name.trim(),
+          company: formData.company.trim(),
+          email: formData.email.trim(),
+          Name: formData.name.trim(),
+          "Production or Company": formData.company.trim(),
+          "Business Email": formData.email.trim(),
+          submittedAt: new Date().toISOString()
+        };
+
+    try {
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => '');
+        throw new Error(`Server returned HTTP ${response.status}: ${errorText || response.statusText || 'Submission failed'}`);
+      }
+
+      setIsSubmitted(true);
+      confetti({
+        particleCount: 90,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#eab308', '#facc15', '#fbbf24', '#ffffff']
+      });
+    } catch (err) {
+      console.error('Submission error:', err);
+      setErrorMessage(
+        err.message || 'Failed to send data to the webhook. Please check your VITE_EXCEL_WEBHOOK_URL.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
 
@@ -53,182 +106,122 @@ export default function Contact({ defaultService = '' }) {
           Contact Sunrise VFX
         </h2>
         <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-          Ready to bring your cinematic vision to reality? Contact our global production team for shot evaluations, bids, and secure plate submissions.
+          Ready to bring your cinematic vision to reality? Enter your details below to get connected with our studio team.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
         {/* Left Form (7 cols) */}
         <div className="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-10 border border-amber-500/30 shadow-2xl relative">
           {isSubmitted ? (
-            <div className="py-16 text-center space-y-4">
+            <div className="py-12 text-center space-y-5">
               <div className="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-400 text-amber-300 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-8 h-8 stroke-[3]" />
               </div>
               <h3 className="font-cinzel text-2xl sm:text-3xl font-extrabold text-gold-bright">
                 Inquiry Dispatched!
               </h3>
+              
+              <div className="max-w-md mx-auto p-4 rounded-2xl bg-black/60 border border-amber-500/30 text-left text-xs space-y-2">
+                <div className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-bold mb-2">
+                  Captured Details (3 Columns):
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1.5">
+                  <span className="text-gray-400">1. Name:</span>
+                  <span className="text-white font-medium">{formData.name}</span>
+                </div>
+                <div className="flex justify-between border-b border-white/5 pb-1.5">
+                  <span className="text-gray-400">2. Production / Company:</span>
+                  <span className="text-white font-medium">{formData.company}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">3. Business Email:</span>
+                  <span className="text-amber-300 font-mono">{formData.email}</span>
+                </div>
+              </div>
+
               <p className="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
-                Thank you, <span className="text-amber-300 font-semibold">{formData.name}</span>. An assigned VFX Producer from our <span className="text-amber-300 font-medium">Global Production Hub</span> will evaluate your requirements and contact you at <span className="text-amber-300 font-mono">{formData.email}</span> within 2 hours.
+                Your inquiry has been sent directly to the configured Excel endpoint.
               </p>
-              <button
-                onClick={() => setIsSubmitted(false)}
-                className="mt-4 px-6 py-2.5 rounded-xl btn-gold-outline text-xs uppercase tracking-wider font-bold"
-              >
-                Send Another Message
-              </button>
+
+              <div className="pt-2 flex justify-center">
+                <button
+                  onClick={() => {
+                    setIsSubmitted(false);
+                    setFormData({ name: '', company: '', email: '' });
+                  }}
+                  className="px-6 py-2.5 rounded-xl btn-gold-primary text-black text-xs uppercase tracking-wider font-bold shadow-md hover:scale-[1.02] transition-transform cursor-pointer"
+                >
+                  Submit Another
+                </button>
+              </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Jane Doe"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
-                  />
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {errorMessage && (
+                <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/40 text-red-200 text-xs flex items-start gap-2.5">
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                  <div className="leading-relaxed">
+                    <span className="font-bold">Error:</span> {errorMessage}
+                  </div>
                 </div>
+              )}
 
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Studio / Production Company *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Apex Pictures / Agency"
-                    value={formData.studio}
-                    onChange={(e) => setFormData({ ...formData, studio: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Business Email *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="producer@studio.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Primary Service Needed
-                  </label>
-                  <select
-                    value={formData.service}
-                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white focus:border-amber-400 focus:outline-none"
-                  >
-                    <option value="prep" className="bg-[#121218]">1. Prep & Clean-up (Rig/Wire Removal)</option>
-                    <option value="roto" className="bg-[#121218]">2. Rotoscopy (Silhouette & Hair)</option>
-                    <option value="comp" className="bg-[#121218]">3. Comp (Deep EXR & CG Integration)</option>
-                    <option value="matchmove" className="bg-[#121218]">4. Matchmove (3D Tracking & Lens Solve)</option>
-                    <option value="ai-videos" className="bg-[#121218]">5. AI Videos & Neural VFX</option>
-                    <option value="full-package" className="bg-[#121218]">Full End-to-End VFX Package</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Project Type
-                  </label>
-                  <select
-                    value={formData.projectType}
-                    onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white focus:border-amber-400 focus:outline-none"
-                  >
-                    <option value="Feature Film" className="bg-[#121218]">Feature Film</option>
-                    <option value="Episodic Series" className="bg-[#121218]">Episodic Series</option>
-                    <option value="Commercial" className="bg-[#121218]">Commercial</option>
-                    <option value="Music Video" className="bg-[#121218]">Music Video</option>
-                    <option value="Game Cinematic" className="bg-[#121218]">Game Cinematic</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Estimated Shots
-                  </label>
-                  <select
-                    value={formData.shotCount}
-                    onChange={(e) => setFormData({ ...formData, shotCount: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white focus:border-amber-400 focus:outline-none"
-                  >
-                    <option value="1-5 Shots" className="bg-[#121218]">1 - 5 Shots</option>
-                    <option value="6-20 Shots" className="bg-[#121218]">6 - 20 Shots</option>
-                    <option value="20-50 Shots" className="bg-[#121218]">20 - 50 Shots</option>
-                    <option value="50+ Shots" className="bg-[#121218]">50+ Shots (Full Show)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                    Delivery Deadline
-                  </label>
-                  <select
-                    value={formData.deadline}
-                    onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white focus:border-amber-400 focus:outline-none"
-                  >
-                    <option value="Rush 48h" className="bg-[#121218]">Rush (48 Hours)</option>
-                    <option value="1 Week" className="bg-[#121218]">1 Week</option>
-                    <option value="2-3 Weeks" className="bg-[#121218]">2 - 3 Weeks</option>
-                    <option value="1+ Months" className="bg-[#121218]">1+ Months</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <User className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Name *</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Jane Doe / Christopher Nolan"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full p-3.5 rounded-xl bg-black/50 border border-white/10 text-sm text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none transition-all"
+                />
               </div>
 
               <div>
-                <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-1.5">
-                  Shot Breakdown & Brief / Plate Links
+                <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Production or Company *</span>
                 </label>
-                <textarea
-                  rows={4}
-                  placeholder="Describe your VFX requirements, plate formats (e.g. 4K ProRes 4444 / EXR), and any download links (Aspera, Frame.io, Dropbox)..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full p-3 rounded-xl bg-black/50 border border-white/10 text-xs text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 pt-2">
                 <input
-                  type="checkbox"
-                  id="ndaCheckbox"
-                  checked={formData.ndaRequired}
-                  onChange={(e) => setFormData({ ...formData, ndaRequired: e.target.checked })}
-                  className="w-4 h-4 rounded bg-black/50 border-white/20 text-amber-400 focus:ring-0 cursor-pointer"
+                  type="text"
+                  required
+                  placeholder="e.g. Apex Pictures / Agency"
+                  value={formData.company}
+                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  className="w-full p-3.5 rounded-xl bg-black/50 border border-white/10 text-sm text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none transition-all"
                 />
-                <label htmlFor="ndaCheckbox" className="text-xs text-gray-300 cursor-pointer">
-                  Request Mutual Non-Disclosure Agreement (NDA) before sharing raw assets.
-                </label>
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-3.5 rounded-xl btn-gold-primary text-black font-extrabold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
-              >
-                <Send className="w-4 h-4" />
-                <span>Submit VFX Shot Inquiry</span>
-              </button>
+              <div>
+                <label className="block text-xs font-mono font-bold text-gray-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Business Email *</span>
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="producer@studio.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full p-3.5 rounded-xl bg-black/50 border border-white/10 text-sm text-white placeholder-gray-500 focus:border-amber-400 focus:outline-none transition-all"
+                />
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 rounded-xl btn-gold-primary text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] transition-all cursor-pointer disabled:opacity-50"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>{isSubmitting ? 'Sending to Webhook...' : 'Submit Inquiry'}</span>
+                </button>
+              </div>
             </form>
           )}
         </div>
@@ -259,7 +252,7 @@ export default function Contact({ defaultService = '' }) {
             <div className="flex items-start gap-3 text-xs text-gray-300">
               <Mail className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <div className="font-bold text-white">General Inquiries & Bidding:</div>
+                <div className="font-bold text-white">General Inquiries:</div>
                 <a href="mailto:info@sunrisevfx.com" className="font-mono text-amber-300 hover:underline">info@sunrisevfx.com</a>
               </div>
             </div>

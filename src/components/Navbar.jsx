@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sparkles, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 
 const NAV_LINKS = [
   { name: 'HOME', href: '#home' },
@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { name: 'CONTACT US', href: '#contact' },
 ];
 
-export default function Navbar({ onOpenQuote }) {
+export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -110,17 +110,8 @@ export default function Navbar({ onOpenQuote }) {
             })}
           </nav>
 
-          {/* Action CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onOpenQuote}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-amber-300 border border-amber-500/60 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-400 shadow-[0_0_15px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.35)] transition-all duration-300"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>GET A QUOTE</span>
-            </button>
-
-            {/* Mobile Hamburger Toggle */}
+          {/* Mobile Hamburger Toggle */}
+          <div className="flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 rounded-lg text-amber-400 hover:text-white hover:bg-white/10 transition-colors"
@@ -154,18 +145,6 @@ export default function Navbar({ onOpenQuote }) {
                 </a>
               );
             })}
-
-            <div className="pt-4 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onOpenQuote();
-                }}
-                className="w-full py-3 rounded-xl btn-gold-primary text-center text-xs font-bold uppercase tracking-wider"
-              >
-                GET A QUOTE
-              </button>
-            </div>
           </div>
         </div>
       )}

@@ -1,8 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import { ChevronRight, Play, Sparkles } from 'lucide-react';
 import { servicesData, studioInfo } from '../data/studioData';
 
-export default function Hero({ onSelectService, onOpenQuote }) {
+export default function Hero({ onSelectService }) {
   const scrollToServices = () => {
     const el = document.getElementById('services');
     if (el) el.scrollIntoView({ behavior: 'smooth' });

@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Sparkles, MoveHorizontal, CheckCircle2, Layers, Sliders } from 'lucide-react';
 import { breakdownsData } from '../data/studioData';
 
-export default function BeforeAfterSlider({ initialServiceId = 'comp' }) {
+export default function BeforeAfterSlider({ initialServiceId = 'prep' }) {
   const [activeBreakdownId, setActiveBreakdownId] = useState(
     breakdownsData.find(b => b.serviceId === initialServiceId)?.id || breakdownsData[0].id
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparkles, Shield, Cpu, Award, Lock, Zap } from 'lucide-react';
 
-export default function AboutUs({ onOpenQuote }) {
+export default function AboutUs({ onContact }) {
   return (
     <section id="about" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
@@ -80,7 +80,7 @@ export default function AboutUs({ onOpenQuote }) {
               </div>
               <h4 className="font-bold text-sm text-white mb-1">Pixel Perfection</h4>
               <p className="text-xs text-gray-400 leading-normal">
-                Sub-pixel roto isolation, ACES color fidelity, and 0.3px matchmove residuals.
+                Pixel-perfect plate cleanup, sub-pixel roto isolation, deep comp integration, 0.3px matchmove residuals, and generative neural VFX.
               </p>
             </div>
 
@@ -106,7 +106,7 @@ export default function AboutUs({ onOpenQuote }) {
               </div>
             </div>
             <button
-              onClick={onOpenQuote}
+              onClick={onContact || (() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }))}
               className="text-xs font-bold text-amber-300 hover:text-white uppercase tracking-wider underline underline-offset-4"
             >
               Get Studio Consultation →

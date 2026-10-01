@@ -10,13 +10,9 @@ import Blog from './components/Blog';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 export default function App() {
-  const [contactServiceId, setContactServiceId] = useState('prep');
   const [activeSelectedServiceId, setActiveSelectedServiceId] = useState('prep');
 
-  const handleScrollToContact = (serviceId = 'prep') => {
-    if (serviceId) {
-      setContactServiceId(serviceId);
-    }
+  const handleScrollToContact = () => {
     const el = document.getElementById('contact');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -41,7 +37,7 @@ export default function App() {
       <div className="relative z-10 flex flex-col min-h-screen">
         
         {/* Navigation Bar */}
-        <Navbar onOpenQuote={() => handleScrollToContact('prep')} />
+        <Navbar />
 
         {/* Main Content Sections */}
         <main className="flex-grow">
@@ -54,14 +50,13 @@ export default function App() {
           <Services 
             selectedServiceId={activeSelectedServiceId}
             onSelectService={setActiveSelectedServiceId}
-            onOpenQuoteWithService={(svcId) => handleScrollToContact(svcId)}
           />
 
           {/* About Us Section with Studio Vision & TPN Gold Security */}
-          <AboutUs onOpenQuote={() => handleScrollToContact('prep')} />
+          <AboutUs onContact={handleScrollToContact} />
 
           {/* Portfolio & Showreel Grid with Category Filters */}
-          <Portfolio onOpenQuote={() => handleScrollToContact('comp')} />
+          <Portfolio />
 
           {/* Careers & Job Portal */}
           <Careers />
@@ -69,14 +64,13 @@ export default function App() {
           {/* VFX Journal & Tech Articles */}
           <Blog />
 
-          {/* Contact Us & Project Bidding */}
-          <Contact defaultService={contactServiceId} />
+          {/* Contact Us */}
+          <Contact />
         </main>
 
         {/* Studio Footer */}
         <Footer 
           onSelectService={handleSelectServiceFromHero}
-          onOpenQuote={() => handleScrollToContact('prep')}
         />
 
       </div>

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { BookOpen, Clock, User, X } from 'lucide-react';
 import { blogPosts } from '../data/studioData';
 
@@ -21,12 +21,12 @@ export default function Blog() {
           The Sunrise VFX Journal
         </h2>
         <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-          Deep dives into visual effects craft, Nuke compositing pipelines, sub-pixel rotoscope workflows, and generative AI research.
+          Deep dives into visual effects craft, prep plate restoration, sub-pixel rotoscope workflows, deep compositing pipelines, 3D matchmove, and generative AI videos.
         </p>
       </div>
 
       {/* Articles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogPosts.map((post) => (
           <article
             key={post.id}

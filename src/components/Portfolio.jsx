@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Play, Film, X, ArrowRight } from 'lucide-react';
+import { Play, Film, X } from 'lucide-react';
 import { portfolioProjects, studioReels } from '../data/studioData';
 
 const CATEGORIES = ['All', 'Prep', 'Roto', 'Comp', 'Matchmove', 'AI Videos'];
 
-export default function Portfolio({ onOpenQuote }) {
+export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activeProjectModal, setActiveProjectModal] = useState(null);
 
@@ -53,12 +53,12 @@ export default function Portfolio({ onOpenQuote }) {
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <div className="flex flex-wrap justify-center gap-6 mb-16">
         {filteredProjects.map((project) => (
           <div
             key={project.id}
             onClick={() => setActiveProjectModal(project)}
-            className="group relative rounded-3xl overflow-hidden glass-panel border border-white/10 hover:border-amber-500/50 transition-all duration-500 cursor-pointer flex flex-col shadow-xl hover:shadow-[0_15px_40px_rgba(234,179,8,0.2)] hover:-translate-y-1.5"
+            className="group relative rounded-3xl overflow-hidden glass-panel border border-white/10 hover:border-amber-500/50 transition-all duration-500 cursor-pointer flex flex-col shadow-xl hover:shadow-[0_15px_40px_rgba(234,179,8,0.2)] hover:-translate-y-1.5 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-md lg:max-w-none"
           >
             {/* Thumbnail Box */}
             <div className="relative h-60 w-full overflow-hidden bg-black">
@@ -192,22 +192,11 @@ export default function Portfolio({ onOpenQuote }) {
               </video>
             </div>
 
-            {/* Footer Information & Quote CTA */}
-            <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
-              <p className="text-gray-300 max-w-lg leading-relaxed">
+            {/* Footer Information */}
+            <div className="mt-4 pt-3 border-t border-white/10 text-xs">
+              <p className="text-gray-300 leading-relaxed">
                 {activeProjectModal.description}
               </p>
-
-              <button
-                onClick={() => {
-                  setActiveProjectModal(null);
-                  onOpenQuote();
-                }}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl btn-gold-primary text-black font-bold text-xs uppercase tracking-wider shrink-0"
-              >
-                <span>Request VFX Quote</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
 
           </div>
