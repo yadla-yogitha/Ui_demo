@@ -58,14 +58,14 @@ export default function App() {
           {/* Portfolio & Showreel Grid with Category Filters */}
           <Portfolio />
 
-          {/* Careers & Job Portal */}
-          <Careers />
-
           {/* VFX Journal & Tech Articles */}
           <Blog />
 
           {/* Contact Us */}
           <Contact />
+
+          {/* Careers & Job Portal */}
+          <Careers />
         </main>
 
         {/* Studio Footer */}

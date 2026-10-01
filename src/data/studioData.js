@@ -4,7 +4,7 @@ export const studioInfo = {
   description: 'We are a creative VFX studio delivering exceptional visual effects for films, commercials and digital content with passion, precision and perfection.',
   stats: [
     { label: 'Feature Films & Shows', value: '25+' },
-    { label: 'Completed VFX Shots', value: '1500' },
+    { label: 'Completed VFX Shots', value: '4200' },
     { label: 'Client Delivery Rate', value: '99.9%' },
     { label: 'Global Artists & TDs', value: '65+' },
   ],

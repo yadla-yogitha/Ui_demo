@@ -53,12 +53,12 @@ export default function Portfolio() {
       </div>
 
       {/* Projects Grid */}
-      <div className="flex flex-wrap justify-center gap-6 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {filteredProjects.map((project) => (
           <div
             key={project.id}
             onClick={() => setActiveProjectModal(project)}
-            className="group relative rounded-3xl overflow-hidden glass-panel border border-white/10 hover:border-amber-500/50 transition-all duration-500 cursor-pointer flex flex-col shadow-xl hover:shadow-[0_15px_40px_rgba(234,179,8,0.2)] hover:-translate-y-1.5 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-md lg:max-w-none"
+            className="group relative rounded-3xl overflow-hidden glass-panel border border-white/10 hover:border-amber-500/50 transition-all duration-500 cursor-pointer flex flex-col shadow-xl hover:shadow-[0_15px_40px_rgba(234,179,8,0.2)] hover:-translate-y-1.5"
           >
             {/* Thumbnail Box */}
             <div className="relative h-60 w-full overflow-hidden bg-black">

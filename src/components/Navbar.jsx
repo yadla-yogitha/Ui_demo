@@ -6,9 +6,9 @@ const NAV_LINKS = [
   { name: 'ABOUT US', href: '#about' },
   { name: 'SERVICES', href: '#services' },
   { name: 'PORTFOLIO', href: '#portfolio' },
-  { name: 'CAREERS', href: '#careers' },
   { name: 'BLOG', href: '#blog' },
   { name: 'CONTACT US', href: '#contact' },
+  { name: 'CAREERS', href: '#careers' },
 ];
 
 export default function Navbar() {
