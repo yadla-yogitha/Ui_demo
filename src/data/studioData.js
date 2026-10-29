@@ -126,19 +126,35 @@ export const servicesData = [
   }
 ];
 
+export const mainShowreel = {
+  id: 'main-showreel',
+  name: 'Main Studio Showreel',
+  title: 'VFX_REEL_SR_sunrise.VFX',
+  fullTitle: 'Sunrise VFX Studio Master Showreel',
+  category: 'Master Reel',
+  videoUrl: '/reels/VFX_REEL_SR_sunrise_VFX.mp4',
+  thumbnail: '/breakdowns/paint.png',
+  desc: 'Sunrise VFX Studio Master Showreel showcasing cutting-edge visual effects across Prep, Rotoscopy, Deep Compositing, Matchmove, and AI Video pipelines.',
+  year: '2025 / 2026',
+  client: 'Sunrise VFX Studio',
+  shotsCount: 'Studio Master Reel',
+  tags: ['Main Showreel', 'Prep', 'Roto', 'Comp', 'Matchmove', 'AI Videos'],
+  isFeatured: true
+};
+
 export const breakdownsData = [
   {
     id: 'breakdown-prep',
     category: 'Prep',
     serviceId: 'prep',
-    title: 'High-Altitude Stunt Wire & Rig Removal',
-    project: 'Apex Velocity (Action Thriller)',
-    description: 'Total digital removal of 6 safety cables, stunt crane harnesses, and camera tracking markers with dynamic mountain cliff texture reconstruction.',
-    beforeLabel: 'Production Plate with Cables & Rig',
-    afterLabel: 'Clean Restored Final Plate',
-    beforeImage: '/breakdowns/prep_plate.jpg',
-    afterImage: '/breakdowns/prep_final.jpg',
-    stats: { frames: '420 Frames', software: 'Silhouette, Nuke, Mocha', resolution: '4K Open Gate' }
+    title: 'Prep & Digital Paint Cleanup',
+    project: 'Sunrise VFX Production Plate',
+    description: 'Advanced digital paint & prep plate restoration: complete rig removal, marker cleanup, and seamless clean plate generation with natural grain preservation.',
+    beforeLabel: 'Input Plate (Before Prep)',
+    afterLabel: 'Clean Output Plate (After Prep)',
+    beforeImage: '/breakdowns/paint_input.png',
+    afterImage: '/breakdowns/paint.png',
+    stats: { frames: '420 Frames', software: 'Silhouette FX, Nuke, Mocha', resolution: '4K ACEScg' }
   },
   {
     id: 'breakdown-roto',
@@ -195,6 +211,13 @@ export const breakdownsData = [
 ];
 
 export const studioReels = [
+  {
+    id: 'main-showreel',
+    name: '⭐ Main Showreel (VFX_REEL_SR)',
+    category: 'Master Reel',
+    videoUrl: '/reels/VFX_REEL_SR_sunrise_VFX.mp4',
+    desc: 'Sunrise VFX Studio Master Showreel showcasing cutting-edge visual effects across Prep, Rotoscopy, Deep Compositing, Matchmove, and AI Video pipelines.'
+  },
   { id: 'prep', name: 'Paint & Prep Reel', category: 'Prep', videoUrl: '/reels/prep_reel.mp4', desc: 'Wire/rig removal, plate clean-up, and marker restoration' },
   { id: 'roto', name: 'Rotoscopy Reel', category: 'Roto', videoUrl: '/reels/roto_reel.mp4', desc: 'Sub-pixel organic silhouettes, hair, fur, and motion blur isolation' },
   { id: 'comp', name: 'Compositing Reel', category: 'Comp', videoUrl: '/reels/comp_reel.mp4', desc: 'Deep compositing, photoreal CG integration, and multi-pass EXR' },
@@ -203,13 +226,14 @@ export const studioReels = [
 ];
 
 export const portfolioProjects = [
+
   {
     id: 'p3',
-    title: 'Hyperdrive Tokyo',
+    title: 'Digital Paint & Plate Restoration',
     category: 'Prep',
     client: 'Global Automotive Brand',
     year: '2024',
-    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    thumbnail: '/breakdowns/paint.png',
     videoUrl: '/reels/prep_reel.mp4',
     shotsCount: '85 Shots',
     tags: ['Prep', 'Rig Removal', 'Plate Restoration'],

@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ChevronRight, Play, Sparkles } from 'lucide-react';
-import { servicesData, studioInfo } from '../data/studioData';
+import { servicesData, studioInfo, mainShowreel } from '../data/studioData';
+import VideoPlayerModal from './VideoPlayerModal';
 
-export default function Hero({ onSelectService }) {
+export default function Hero({ onSelectService, onWatchShowreel }) {
+  const [isLocalModalOpen, setIsLocalModalOpen] = useState(false);
+
   const scrollToServices = () => {
     const el = document.getElementById('services');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToPortfolio = () => {
-    const el = document.getElementById('portfolio');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  const handleWatchShowreelClick = () => {
+    if (onWatchShowreel) {
+      onWatchShowreel(mainShowreel);
+    } else {
+      setIsLocalModalOpen(true);
+    }
   };
 
   return (
@@ -47,16 +53,16 @@ export default function Hero({ onSelectService }) {
           {/* Primary CTA - GET STARTED > */}
           <button
             onClick={scrollToServices}
-            className="flex items-center gap-2 px-8 py-3.5 rounded-lg btn-gold-primary text-black font-extrabold text-sm sm:text-base uppercase tracking-wider shadow-[0_0_30px_rgba(234,179,8,0.45)] hover:shadow-[0_0_45px_rgba(234,179,8,0.7)] transition-all transform hover:-translate-y-0.5"
+            className="flex items-center gap-2 px-8 py-3.5 rounded-lg btn-gold-primary text-black font-extrabold text-sm sm:text-base uppercase tracking-wider shadow-[0_0_30px_rgba(234,179,8,0.45)] hover:shadow-[0_0_45px_rgba(234,179,8,0.7)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
           >
             <span>GET STARTED</span>
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
           </button>
 
-          {/* Secondary Watch Showreel CTA */}
+          {/* Secondary Watch Showreel CTA - Plays VFX_REEL_SR_sunrise.VFX */}
           <button
-            onClick={scrollToPortfolio}
-            className="flex items-center gap-2 px-7 py-3.5 rounded-lg glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 font-bold text-sm sm:text-base tracking-wider uppercase transition-all duration-300 hover:bg-amber-500/15"
+            onClick={handleWatchShowreelClick}
+            className="flex items-center gap-2 px-7 py-3.5 rounded-lg glass-panel text-amber-300 hover:text-white border border-amber-500/40 hover:border-amber-400 font-bold text-sm sm:text-base tracking-wider uppercase transition-all duration-300 hover:bg-amber-500/15 cursor-pointer shadow-[0_0_20px_rgba(234,179,8,0.2)]"
           >
             <Play className="w-4 h-4 text-amber-400 fill-amber-400" />
             <span>WATCH SHOWREEL</span>
@@ -108,6 +114,14 @@ export default function Hero({ onSelectService }) {
         </div>
 
       </div>
+
+      {/* Hero Showreel Modal Fallback */}
+      {isLocalModalOpen && (
+        <VideoPlayerModal 
+          initialVideo={mainShowreel}
+          onClose={() => setIsLocalModalOpen(false)}
+        />
+      )}
     </section>
   );
 }

@@ -9,8 +9,16 @@ import Careers from './components/Careers';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import VideoPlayerModal from './components/VideoPlayerModal';
+import { mainShowreel } from './data/studioData';
+
 export default function App() {
   const [activeSelectedServiceId, setActiveSelectedServiceId] = useState('prep');
+  const [activeModalVideo, setActiveModalVideo] = useState(null);
+
+  const handleOpenShowreel = (video = null) => {
+    setActiveModalVideo(video || mainShowreel);
+  };
 
   const handleScrollToContact = () => {
     const el = document.getElementById('contact');
@@ -37,13 +45,14 @@ export default function App() {
       <div className="relative z-10 flex flex-col min-h-screen">
         
         {/* Navigation Bar */}
-        <Navbar />
+        <Navbar onWatchShowreel={() => handleOpenShowreel(mainShowreel)} />
 
         {/* Main Content Sections */}
         <main className="flex-grow">
           {/* Hero Section matching the user's reference mockup */}
           <Hero 
             onSelectService={handleSelectServiceFromHero}
+            onWatchShowreel={() => handleOpenShowreel(mainShowreel)}
           />
 
           {/* 5 Core Disciplines Showcase: 1. Prep, 2. Roto, 3. Comp, 4. Matchmove, 5. AI Videos */}
@@ -74,6 +83,14 @@ export default function App() {
         />
 
       </div>
+
+      {/* Global Master Showreel & Cinema Video Modal */}
+      {activeModalVideo && (
+        <VideoPlayerModal 
+          initialVideo={activeModalVideo}
+          onClose={() => setActiveModalVideo(null)}
+        />
+      )}
 
     </div>
   );

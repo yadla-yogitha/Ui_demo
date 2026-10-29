@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { Menu, X, ChevronRight, Play } from 'lucide-react';
 
 const NAV_LINKS = [
   { name: 'HOME', href: '#home' },
@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { name: 'CAREERS', href: '#careers' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onWatchShowreel }) {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -108,10 +108,30 @@ export default function Navbar() {
                 </a>
               );
             })}
+
+            {/* Desktop Showreel Quick Action */}
+            {onWatchShowreel && (
+              <button
+                onClick={onWatchShowreel}
+                className="ml-3 flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg border border-amber-500/50 bg-amber-500/10 hover:bg-amber-500 text-amber-300 hover:text-black text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 shadow-[0_0_15px_rgba(234,179,8,0.25)] hover:shadow-[0_0_25px_rgba(234,179,8,0.6)] cursor-pointer"
+              >
+                <Play className="w-3 h-3 fill-current" />
+                <span>SHOWREEL</span>
+              </button>
+            )}
           </nav>
 
-          {/* Mobile Hamburger Toggle */}
-          <div className="flex items-center">
+          {/* Mobile Hamburger Toggle & Quick Reel button */}
+          <div className="flex items-center gap-2">
+            {onWatchShowreel && (
+              <button
+                onClick={onWatchShowreel}
+                className="lg:hidden flex items-center gap-1 px-2.5 py-1 rounded-lg border border-amber-500/50 bg-amber-500/10 text-amber-300 text-[11px] font-mono font-bold"
+              >
+                <Play className="w-2.5 h-2.5 fill-current" />
+                <span>REEL</span>
+              </button>
+            )}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 rounded-lg text-amber-400 hover:text-white hover:bg-white/10 transition-colors"
@@ -145,6 +165,19 @@ export default function Navbar() {
                 </a>
               );
             })}
+
+            {onWatchShowreel && (
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onWatchShowreel();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl btn-gold-primary text-black font-extrabold text-xs uppercase tracking-wider mt-3 shadow-lg"
+              >
+                <Play className="w-4 h-4 fill-black" />
+                <span>WATCH MAIN SHOWREEL</span>
+              </button>
+            )}
           </div>
         </div>
       )}
