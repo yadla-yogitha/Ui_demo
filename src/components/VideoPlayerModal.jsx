@@ -44,26 +44,26 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-5 md:p-6 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-5xl glass-panel rounded-3xl overflow-hidden border border-amber-500/50 p-4 sm:p-7 shadow-[0_0_60px_rgba(234,179,8,0.25)] bg-[#08080f] max-h-[94vh] flex flex-col"
+        className="relative w-full max-w-4xl lg:max-w-5xl min-w-0 max-h-[94vh] sm:max-h-[90vh] glass-panel rounded-2xl sm:rounded-3xl border border-amber-500/40 p-3 sm:p-5 md:p-6 shadow-[0_0_50px_rgba(234,179,8,0.25)] bg-[#08080f] flex flex-col overflow-y-auto overflow-x-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Top Header Bar */}
-        <div className="flex items-center justify-between pb-3.5 border-b border-amber-500/20 mb-3 gap-2">
-          <div className="flex items-center gap-3 min-w-0">
-            <span className="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-300 font-mono text-xs font-bold border border-amber-500/40 shrink-0 flex items-center gap-1.5 shadow-[0_0_15px_rgba(234,179,8,0.3)]">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>{currentVideo.category || 'SHOWREEL'}</span>
+        <div className="flex items-center justify-between pb-2.5 sm:pb-3 border-b border-amber-500/20 mb-2.5 sm:mb-3 gap-2 w-full min-w-0 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg bg-amber-500/20 text-amber-300 font-mono text-[10px] sm:text-xs font-bold border border-amber-500/40 shrink-0 flex items-center gap-1 shadow-[0_0_12px_rgba(234,179,8,0.25)]">
+              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+              <span className="uppercase tracking-wider">{currentVideo.category || 'SHOWREEL'}</span>
             </span>
-            <div className="min-w-0">
-              <h3 className="font-cinzel text-base sm:text-xl font-bold text-white truncate text-gold-bright">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-cinzel text-xs sm:text-base md:text-lg font-bold text-white truncate text-gold-bright leading-tight">
                 {currentVideo.title || currentVideo.name}
               </h3>
               {currentVideo.subtitle && (
-                <p className="text-[11px] font-mono text-amber-300/80 tracking-wider truncate">
+                <p className="text-[10px] sm:text-[11px] font-mono text-amber-300/80 tracking-wider truncate">
                   {currentVideo.subtitle}
                 </p>
               )}
@@ -72,19 +72,19 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
 
           <button
             onClick={onClose}
-            className="p-2.5 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-gray-300 transition-all duration-200 shrink-0 border border-white/10 hover:border-amber-400 shadow-lg cursor-pointer"
+            className="p-1.5 sm:p-2 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-gray-300 transition-all duration-200 shrink-0 border border-white/10 hover:border-amber-400 shadow-lg cursor-pointer ml-1"
             aria-label="Close Showreel"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
         </div>
 
         {/* Quick Reel Switcher Bar inside Modal */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-2 scrollbar-none">
-          <span className="text-xs font-mono text-amber-400/80 font-bold shrink-0 flex items-center gap-1">
-            <Film className="w-3.5 h-3.5 text-amber-400" />
-            Switch Reel:
-          </span>
+        <div className="w-full min-w-0 max-w-full overflow-x-auto pb-2.5 mb-2 sm:mb-3 scrollbar-none flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="text-[10px] sm:text-xs font-mono text-amber-400/90 font-bold shrink-0 flex items-center gap-1 mr-0.5">
+            <Film className="w-3 h-3 text-amber-400 shrink-0" />
+            <span className="hidden sm:inline">Reels:</span>
+          </div>
           {studioReels.map((r) => {
             const isCurrent = currentVideo.videoUrl === r.videoUrl;
             return (
@@ -102,9 +102,9 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
                     year: '2025'
                   });
                 }}
-                className={'px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 border cursor-pointer ' + (
+                className={'px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold whitespace-nowrap transition-all duration-200 border cursor-pointer shrink-0 ' + (
                   isCurrent
-                    ? 'bg-amber-500 text-black border-amber-400 font-extrabold shadow-[0_0_20px_rgba(234,179,8,0.5)] scale-105'
+                    ? 'bg-amber-500 text-black border-amber-400 font-extrabold shadow-[0_0_15px_rgba(234,179,8,0.45)]'
                     : 'bg-black/60 text-gray-300 border-white/10 hover:border-amber-400/50 hover:text-white hover:bg-amber-500/10'
                 )}
               >
@@ -115,20 +115,20 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
         </div>
 
         {/* HTML5 Video Player */}
-        <div className="relative rounded-2xl overflow-hidden bg-black border border-amber-500/30 aspect-video shadow-[0_15px_40px_rgba(0,0,0,0.9)] flex-1 flex items-center justify-center">
+        <div className="relative rounded-xl sm:rounded-2xl overflow-hidden bg-black border border-amber-500/30 aspect-video shadow-[0_15px_40px_rgba(0,0,0,0.9)] w-full min-w-0 max-w-full flex items-center justify-center shrink-0">
           {/* Loading Spinner */}
           {isLoading && !hasError && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm z-10 pointer-events-none">
-              <div className="w-10 h-10 border-2 border-amber-500/30 border-t-amber-400 rounded-full animate-spin mb-2" />
-              <span className="text-xs font-mono text-amber-300/80">Loading Reel...</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-amber-500/30 border-t-amber-400 rounded-full animate-spin mb-2" />
+              <span className="text-[11px] sm:text-xs font-mono text-amber-300/80">Loading Reel...</span>
             </div>
           )}
 
           {/* Error Message Fallback */}
           {hasError && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 p-4 z-10 text-center">
-              <AlertCircle className="w-10 h-10 text-red-400 mb-2" />
-              <p className="text-sm text-gray-200 font-medium mb-3">Unable to play video on this browser.</p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/85 p-4 z-10 text-center">
+              <AlertCircle className="w-8 h-8 sm:w-10 sm:h-10 text-red-400 mb-2" />
+              <p className="text-xs sm:text-sm text-gray-200 font-medium mb-3">Unable to play video on this browser.</p>
               <button
                 onClick={() => {
                   setHasError(false);
@@ -138,7 +138,7 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
                     videoRef.current.play().catch(() => {});
                   }
                 }}
-                className="px-4 py-1.5 rounded-lg bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition-colors"
+                className="px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition-colors"
               >
                 Retry
               </button>
@@ -165,15 +165,15 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
         </div>
 
         {/* Footer Details */}
-        <div className="mt-3.5 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <p className="text-gray-300 leading-relaxed max-w-3xl">
+        <div className="mt-2.5 sm:mt-3.5 pt-2 sm:pt-3 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs w-full min-w-0 shrink-0">
+          <p className="text-gray-300 leading-relaxed text-[11px] sm:text-xs max-w-2xl break-words">
             {currentVideo.description || currentVideo.desc}
           </p>
-          <div className="flex items-center gap-2 font-mono text-[11px] text-amber-400/90">
-            <span className="px-2.5 py-1 rounded-lg bg-black/50 border border-amber-500/20">
+          <div className="flex items-center gap-1.5 sm:gap-2 font-mono text-[10px] sm:text-[11px] text-amber-400/90 shrink-0">
+            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg bg-black/60 border border-amber-500/20 whitespace-nowrap">
               4K Resolution
             </span>
-            <span className="px-2.5 py-1 rounded-lg bg-black/50 border border-amber-500/20">
+            <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg bg-black/60 border border-amber-500/20 whitespace-nowrap">
               ACEScg Color
             </span>
           </div>
