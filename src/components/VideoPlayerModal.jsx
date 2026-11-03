@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { X, Play, Film, Sparkles, Volume2, Maximize2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Play, Film, Sparkles, Volume2, Maximize2, AlertCircle } from 'lucide-react';
 import { studioReels, mainShowreel } from '../data/studioData';
 
 export default function VideoPlayerModal({ initialVideo = null, onClose }) {
   const [currentVideo, setCurrentVideo] = useState(initialVideo || mainShowreel);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const videoRef = useRef(null);
 
   // Close on Escape key
   useEffect(() => {
@@ -15,6 +18,27 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
+
+  // Handle video source changes and safe autoplay on mobile/desktop
+  useEffect(() => {
+    setIsLoading(true);
+    setHasError(false);
+    if (videoRef.current) {
+      videoRef.current.load();
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Autoplay successfully started
+          })
+          .catch((err) => {
+            // Autoplay policy prevented playback (common on mobile without direct tap)
+            // Controls remain available for user interaction
+            console.log('Autoplay deferred for user gesture:', err.message);
+          });
+      }
+    }
+  }, [currentVideo.videoUrl]);
 
   if (!currentVideo) return null;
 
@@ -92,14 +116,50 @@ export default function VideoPlayerModal({ initialVideo = null, onClose }) {
 
         {/* HTML5 Video Player */}
         <div className="relative rounded-2xl overflow-hidden bg-black border border-amber-500/30 aspect-video shadow-[0_15px_40px_rgba(0,0,0,0.9)] flex-1 flex items-center justify-center">
+          {/* Loading Spinner */}
+          {isLoading && !hasError && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm z-10 pointer-events-none">
+              <div className="w-10 h-10 border-2 border-amber-500/30 border-t-amber-400 rounded-full animate-spin mb-2" />
+              <span className="text-xs font-mono text-amber-300/80">Loading Reel...</span>
+            </div>
+          )}
+
+          {/* Error Message Fallback */}
+          {hasError && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 p-4 z-10 text-center">
+              <AlertCircle className="w-10 h-10 text-red-400 mb-2" />
+              <p className="text-sm text-gray-200 font-medium mb-3">Unable to play video on this browser.</p>
+              <button
+                onClick={() => {
+                  setHasError(false);
+                  setIsLoading(true);
+                  if (videoRef.current) {
+                    videoRef.current.load();
+                    videoRef.current.play().catch(() => {});
+                  }
+                }}
+                className="px-4 py-1.5 rounded-lg bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          )}
+
           <video
+            ref={videoRef}
             key={currentVideo.videoUrl}
-            src={currentVideo.videoUrl}
             controls
-            autoPlay
             playsInline
+            preload="metadata"
+            onCanPlay={() => setIsLoading(false)}
+            onPlaying={() => setIsLoading(false)}
+            onError={() => {
+              setIsLoading(false);
+              setHasError(true);
+            }}
             className="w-full h-full object-contain bg-black"
           >
+            <source src={currentVideo.videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
